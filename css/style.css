@@ -101,6 +101,7 @@ body {
     color: var(--text-secondary);
     text-decoration: none;
     font-weight: 500;
+    font-size: 1.08rem;
     transition: all 0.3s ease;
     position: relative;
 }
@@ -596,7 +597,7 @@ body {
 }
 
 .project-card.featured {
-    grid-column: span 2;
+    grid-column: span 1;
 }
 
 .project-image {
@@ -904,7 +905,7 @@ body {
     }
 
     .projects-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
     
