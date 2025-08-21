@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets - Samba SY | Portfolio Data Science & IA</title>
+    <meta name="description" content="Découvrez mes projets en Intelligence Artificielle, Data Science et développement web. Solutions innovantes et applications pratiques.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Samba<span class="highlight">SY</span></h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="about.html" class="nav-link">À Propos</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="projects.html" class="nav-link active">Projets</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="devis.html" class="nav-link cta-btn">Demander un Devis</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Projects -->
+    <section class="hero-projects">
+        <div class="container">
+            <div class="projects-hero-content">
+                <h1>Mes Projets</h1>
+                <p class="lead">Découvrez mes réalisations en IA, Data Science et développement web</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Categories -->
+    <section class="project-categories">
+        <div class="container">
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">Tous les Projets</button>
+                <button class="filter-btn" data-filter="ai">Intelligence Artificielle</button>
+                <button class="filter-btn" data-filter="data">Data Analytics</button>
+                <button class="filter-btn" data-filter="web">Développement Web</button>
+                <button class="filter-btn" data-filter="dashboard">Tableaux de Bord</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects-grid-section">
+        <div class="container">
+            <div class="projects-grid">
+                <!-- Projet IA - Détection Fake News -->
+                <div id="fake-news" class="project-card featured" data-category="ai">
+                    <div class="project-image">
+                        <div class="project-badge">IA</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://dyula-fr.streamlit.app/" target="_blank" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Système de Détection de Fake News</h3>
+                        <p>Application web intelligente capable d'analyser le contenu d'une vidéo ou d'un texte pour en déterminer la véracité. Utilise des modèles de NLP avancés et est conteneurisée via Docker pour un déploiement sur Microsoft Azure.</p>
+                        <div class="project-features">
+                            <span><i class="fas fa-check"></i> Analyse de texte en temps réel</span>
+                            <span><i class="fas fa-check"></i> Traitement vidéo automatisé</span>
+                            <span><i class="fas fa-check"></i> Score de crédibilité</span>
+                            <span><i class="fas fa-check"></i> API REST intégrée</span>
+                        </div>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>NLP</span>
+                            <span>Streamlit</span>
+                            <span>Azure</span>
+                            <span>Docker</span>
+                            <span>Machine Learning</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet IA - Prédiction Diabète -->
+                <div id="diabetes" class="project-card" data-category="ai">
+                    <div class="project-image">
+                        <div class="project-badge">IA</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Application de Prédiction du Diabète</h3>
+                        <p>Outil prédictif exploitant un modèle de machine learning pour anticiper les risques de diabète à partir de données cliniques. Architecture DevOps avec intégration continue et déploiement via Azure.</p>
+                        <div class="project-tech">
+                            <span>Machine Learning</span>
+                            <span>Python</span>
+                            <span>Scikit-learn</span>
+                            <span>Azure</span>
+                            <span>CI/CD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard COVID-19 -->
+                <div class="project-card" data-category="data dashboard">
+                    <div class="project-image">
+                        <div class="project-badge">Data</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://dashboardcovid19.streamlit.app/" target="_blank" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Dashboard COVID-19</h3>
+                        <p>Tableau de bord interactif pour le suivi en temps réel des données COVID-19. Visualisations dynamiques et analyses statistiques pour comprendre l'évolution de la pandémie.</p>
+                        <div class="project-tech">
+                            <span>Streamlit</span>
+                            <span>Python</span>
+                            <span>Pandas</span>
+                            <span>Plotly</span>
+                            <span>Data Visualization</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tableau de Bord Trafic Aérien -->
+                <div class="project-card" data-category="dashboard data">
+                    <div class="project-image">
+                        <div class="project-badge">BI</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Tableau de Bord Trafic Aérien</h3>
+                        <p>Dashboard Power BI pour le suivi du trafic aérien à l'Aéroport de Yoff. Analyse des flux de passagers, performance des vols et optimisation des opérations aéroportuaires.</p>
+                        <div class="project-features">
+                            <span><i class="fas fa-check"></i> Suivi temps réel</span>
+                            <span><i class="fas fa-check"></i> KPIs opérationnels</span>
+                            <span><i class="fas fa-check"></i> Analyses prédictives</span>
+                        </div>
+                        <div class="project-tech">
+                            <span>Power BI</span>
+                            <span>SQL</span>
+                            <span>DAX</span>
+                            <span>Data Modeling</span>
+                            <span>ETL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Ventes & Stock -->
+                <div class="project-card" data-category="dashboard data">
+                    <div class="project-image">
+                        <div class="project-badge">BI</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Dashboard Ventes & Gestion de Stock</h3>
+                        <p>Tableau de bord Power BI pour le suivi des ventes, analyse des produits et gestion optimisée des stocks. Indicateurs de performance commerciale et prévisions de demande.</p>
+                        <div class="project-tech">
+                            <span>Power BI</span>
+                            <span>SQL Server</span>
+                            <span>DAX</span>
+                            <span>Business Intelligence</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Site Teranga Numérique -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-badge">Web</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://teranganumerique.com/" target="_blank" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Site Teranga Numérique</h3>
+                        <p>Site web professionnel pour l'entreprise Teranga Numérique. Développement complet avec hébergement et optimisation SEO pour améliorer la visibilité en ligne.</p>
+                        <div class="project-tech">
+                            <span>HTML/CSS</span>
+                            <span>JavaScript</span>
+                            <span>PHP</span>
+                            <span>SEO</span>
+                            <span>Responsive Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Site Porokhane Digital -->
+                <div id="poraokhane" class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-badge">Web</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://digital-porokhane.com/" target="_blank" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Site Porokhane Digital Consulting</h3>
+                        <p>Site vitrine moderne pour Porokhane Digital Consulting. Design professionnel, hébergement sécurisé et stratégie SEO complète pour maximiser la présence digitale.</p>
+                        <div class="project-tech">
+                            <span>HTML/CSS</span>
+                            <span>JavaScript</span>
+                            <span>PHP</span>
+                            <span>SEO</span>
+                            <span>Web Hosting</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plateforme CV Khombole -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-badge">Web</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://khombole.teranganumerique.com/" target="_blank" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Plateforme de Collecte CV - Khombole</h3>
+                        <p>Système web pour aider la commune de Khombole à collecter les CV des étudiants et professionnels. Interface admin pour rechercher des candidats par domaine, consulter les CV et les contacter.</p>
+                        <div class="project-features">
+                            <span><i class="fas fa-check"></i> Collecte automatisée de CV</span>
+                            <span><i class="fas fa-check"></i> Recherche par domaine</span>
+                            <span><i class="fas fa-check"></i> Interface administrateur</span>
+                            <span><i class="fas fa-check"></i> Système de contact intégré</span>
+                        </div>
+                        <div class="project-tech">
+                            <span>PHP</span>
+                            <span>MySQL</span>
+                            <span>JavaScript</span>
+                            <span>Bootstrap</span>
+                            <span>Admin Panel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Système Gestion Stock -->
+                <div id="stock-management" class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-badge">Web</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://test2.teranganumerique.com/" target="_blank" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Système de Gestion de Stock</h3>
+                        <p>Application web complète pour l'enregistrement des produits, suivi des ventes, gestion du stock et réalisation d'inventaires. Interface intuitive pour optimiser la gestion commerciale.</p>
+                        <div class="project-features">
+                            <span><i class="fas fa-check"></i> Gestion produits</span>
+                            <span><i class="fas fa-check"></i> Suivi des ventes</span>
+                            <span><i class="fas fa-check"></i> Contrôle stock</span>
+                            <span><i class="fas fa-check"></i> Module inventaire</span>
+                        </div>
+                        <div class="project-tech">
+                            <span>PHP</span>
+                            <span>MySQL</span>
+                            <span>JavaScript</span>
+                            <span>Chart.js</span>
+                            <span>CRUD Operations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Système Arbitres -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-badge">Web</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://test3.teranganumerique.com/login.php" target="_blank" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Système de Désignation des Arbitres</h3>
+                        <p>Plateforme de gestion pour la désignation et le suivi des arbitres. Système d'authentification sécurisé et interface de gestion administrative.</p>
+                        <div class="project-tech">
+                            <span>PHP</span>
+                            <span>MySQL</span>
+                            <span>Session Management</span>
+                            <span>Authentication</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-commerce Issa Sy Bio -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-badge">E-commerce</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://issasybio.com/" target="_blank" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Site E-commerce Issa Sy Bio</h3>
+                        <p>Plateforme de vente en ligne complète avec catalogue produits, panier d'achat, système de paiement et gestion des commandes. Interface moderne et responsive.</p>
+                        <div class="project-tech">
+                            <span>E-commerce</span>
+                            <span>PHP</span>
+                            <span>MySQL</span>
+                            <span>Payment Gateway</span>
+                            <span>Responsive Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-commerce Sencouche -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-badge">E-commerce</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://sencouche.com/" target="_blank" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Plateforme E-commerce Sencouche</h3>
+                        <p>Site de vente en ligne avec fonctionnalités avancées de e-commerce. Gestion multi-vendeurs, système de reviews et interface d'administration complète.</p>
+                        <div class="project-tech">
+                            <span>E-commerce</span>
+                            <span>PHP</span>
+                            <span>MySQL</span>
+                            <span>Multi-vendor</span>
+                            <span>Admin Dashboard</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Stats -->
+    <section class="project-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Projets Réalisés</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">Sites Web Créés</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Modèles IA Développés</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Dashboards BI</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Vous Avez un Projet en Tête ?</h2>
+                <p>Transformons vos idées en solutions innovantes</p>
+                <div class="cta-buttons">
+                    <a href="devis.html" class="btn-primary">Demander un Devis</a>
+                    <a href="contact.html" class="btn-secondary">Discuter du Projet</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Samba<span class="highlight">SY</span></h3>
+                    <p>Expert en Data Science, IA et Cloud Computing</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="about.html">À Propos</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="projects.html">Projets</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html#ai">Intelligence Artificielle</a></li>
+                        <li><a href="services.html#cloud">Cloud & DevOps</a></li>
+                        <li><a href="services.html#data">Data Analytics</a></li>
+                        <li><a href="services.html#dev">Développement</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> +221 77 378 48 14</p>
+                        <p><i class="fas fa-envelope"></i> sambasy837@gmail.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Dakar, Sénégal</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Samba SY. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Filtrage des projets
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Retirer la classe active de tous les boutons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Ajouter la classe active au bouton cliqué
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    projectCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            const categories = card.getAttribute('data-category').split(' ');
+                            if (categories.includes(filter)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
