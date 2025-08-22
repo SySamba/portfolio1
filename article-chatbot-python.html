@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un Chatbot IA avec Python et Streamlit - Samba SY</title>
+    <meta name="description" content="Guide complet pour développer votre premier chatbot intelligent en utilisant les dernières technologies NLP.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/article.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><h2><span class="logo-samba">Samba</span><span class="logo-sy">SY</span></h2></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="about.html" class="nav-link">À Propos</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="projects.html" class="nav-link">Projets</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="devis.html" class="nav-link cta-btn">Demander un Devis</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="container">
+            <div class="article-meta">
+                <a href="blog.html" class="back-link"><i class="fas fa-arrow-left"></i> Retour au Blog</a>
+                <div class="article-info">
+                    <span class="category">Tutoriel</span>
+                    <span class="date">15 Décembre 2023</span>
+                    <span class="reading-time"><i class="fas fa-clock"></i> 15 min de lecture</span>
+                </div>
+            </div>
+            <h1 class="article-title">Créer un Chatbot IA avec Python et Streamlit</h1>
+            <p class="article-subtitle">Guide complet pour développer votre premier chatbot intelligent en utilisant les dernières technologies NLP.</p>
+            <div class="article-author">
+                <div class="author-info">
+                    <img src="profil.png" alt="Samba SY" class="author-avatar">
+                    <div>
+                        <span class="author-name">Samba SY</span>
+                        <span class="author-title">Expert IA & NLP</span>
+                    </div>
+                </div>
+                <div class="article-tags">
+                    <span>Chatbot</span>
+                    <span>Python</span>
+                    <span>Streamlit</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Content -->
+    <main class="article-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <article class="article-body">
+                    <h2>Introduction aux Chatbots IA</h2>
+                    <p>Les chatbots intelligents révolutionnent l'interaction homme-machine en offrant des conversations naturelles et contextuelles. Dans ce tutoriel, nous allons créer un chatbot complet utilisant Python, Streamlit et les dernières technologies NLP.</p>
+
+                    <h2>Prérequis</h2>
+                    <ul>
+                        <li>Python 3.8+ installé</li>
+                        <li>Connaissances de base en Python</li>
+                        <li>Compte OpenAI (pour GPT) ou Hugging Face</li>
+                        <li>Éditeur de code (VS Code recommandé)</li>
+                    </ul>
+
+                    <h2>Architecture du Chatbot</h2>
+                    <p>Notre chatbot comprendra :</p>
+                    <ul>
+                        <li><strong>Interface utilisateur</strong> : Streamlit pour l'UI web</li>
+                        <li><strong>Moteur NLP</strong> : OpenAI GPT ou modèles Hugging Face</li>
+                        <li><strong>Mémoire conversationnelle</strong> : Historique des échanges</li>
+                        <li><strong>Base de connaissances</strong> : Documents et FAQ</li>
+                        <li><strong>Système de personnalité</strong> : Ton et style du bot</li>
+                    </ul>
+
+                    <h2>Étape 1 : Installation des Dépendances</h2>
+                    <pre><code># requirements.txt
+streamlit==1.28.1
+openai==1.3.5
+langchain==0.0.340
+chromadb==0.4.18
+sentence-transformers==2.2.2
+python-dotenv==1.0.0
+pandas==2.1.3
+numpy==1.24.3</code></pre>
+
+                    <pre><code># Installation
+pip install -r requirements.txt</code></pre>
+
+                    <h2>Étape 2 : Configuration de Base</h2>
+                    <pre><code># config.py
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Config:
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    MODEL_NAME = "gpt-3.5-turbo"
+    MAX_TOKENS = 150
+    TEMPERATURE = 0.7
+    
+    # Personnalité du chatbot
+    SYSTEM_PROMPT = """
+    Tu es un assistant IA spécialisé en technologie et innovation.
+    Tu es professionnel, bienveillant et toujours prêt à aider.
+    Tu réponds en français et de manière concise mais complète.
+    Si tu ne connais pas une réponse, tu l'admets honnêtement.
+    """
+    
+    # Configuration Streamlit
+    PAGE_TITLE = "ChatBot IA - Assistant Tech"
+    PAGE_ICON = "🤖"</code></pre>
+
+                    <h2>Étape 3 : Moteur de Conversation</h2>
+                    <pre><code># chatbot_engine.py
+import openai
+from typing import List, Dict
+import json
+from datetime import datetime
+
+class ChatbotEngine:
+    def __init__(self, api_key: str, model: str = "gpt-3.5-turbo"):
+        openai.api_key = api_key
+        self.model = model
+        self.conversation_history = []
+        self.system_prompt = Config.SYSTEM_PROMPT
+        
+    def add_message(self, role: str, content: str):
+        """Ajouter un message à l'historique"""
+        message = {
+            "role": role,
+            "content": content,
+            "timestamp": datetime.now().isoformat()
+        }
+        self.conversation_history.append(message)
+        
+    def get_response(self, user_message: str) -> str:
+        """Obtenir une réponse du chatbot"""
+        try:
+            # Ajouter le message utilisateur
+            self.add_message("user", user_message)
+            
+            # Préparer les messages pour l'API
+            messages = [{"role": "system", "content": self.system_prompt}]
+            
+            # Ajouter l'historique (limité aux 10 derniers échanges)
+            recent_history = self.conversation_history[-20:]  # 10 échanges
+            for msg in recent_history:
+                messages.append({
+                    "role": msg["role"],
+                    "content": msg["content"]
+                })
+            
+            # Appel à l'API OpenAI
+            response = openai.ChatCompletion.create(
+                model=self.model,
+                messages=messages,
+                max_tokens=Config.MAX_TOKENS,
+                temperature=Config.TEMPERATURE
+            )
+            
+            bot_response = response.choices[0].message.content.strip()
+            
+            # Ajouter la réponse à l'historique
+            self.add_message("assistant", bot_response)
+            
+            return bot_response
+            
+        except Exception as e:
+            return f"Désolé, une erreur s'est produite : {str(e)}"
+    
+    def clear_history(self):
+        """Effacer l'historique de conversation"""
+        self.conversation_history = []
+        
+    def export_conversation(self) -> str:
+        """Exporter la conversation en JSON"""
+        return json.dumps(self.conversation_history, indent=2, ensure_ascii=False)</code></pre>
+
+                    <h2>Étape 4 : Base de Connaissances</h2>
+                    <pre><code># knowledge_base.py
+import chromadb
+from sentence_transformers import SentenceTransformer
+import pandas as pd
+from typing import List
+
+class KnowledgeBase:
+    def __init__(self):
+        self.client = chromadb.Client()
+        self.collection = self.client.create_collection("knowledge")
+        self.encoder = SentenceTransformer('all-MiniLM-L6-v2')
+        self.load_knowledge()
+        
+    def load_knowledge(self):
+        """Charger la base de connaissances"""
+        # Exemple de données de connaissances
+        knowledge_data = [
+            {
+                "id": "1",
+                "question": "Qu'est-ce que l'intelligence artificielle ?",
+                "answer": "L'IA est une technologie qui permet aux machines de simuler l'intelligence humaine pour résoudre des problèmes complexes.",
+                "category": "IA"
+            },
+            {
+                "id": "2", 
+                "question": "Comment fonctionne le machine learning ?",
+                "answer": "Le ML utilise des algorithmes pour apprendre automatiquement à partir de données sans être explicitement programmé.",
+                "category": "ML"
+            },
+            {
+                "id": "3",
+                "question": "Qu'est-ce que Python ?",
+                "answer": "Python est un langage de programmation polyvalent, facile à apprendre et très utilisé en data science et IA.",
+                "category": "Programmation"
+            }
+        ]
+        
+        # Ajouter à la collection
+        for item in knowledge_data:
+            embedding = self.encoder.encode(item["question"]).tolist()
+            self.collection.add(
+                embeddings=[embedding],
+                documents=[item["answer"]],
+                metadatas=[{"question": item["question"], "category": item["category"]}],
+                ids=[item["id"]]
+            )
+    
+    def search_knowledge(self, query: str, n_results: int = 3) -> List[Dict]:
+        """Rechercher dans la base de connaissances"""
+        query_embedding = self.encoder.encode(query).tolist()
+        
+        results = self.collection.query(
+            query_embeddings=[query_embedding],
+            n_results=n_results
+        )
+        
+        knowledge_items = []
+        for i in range(len(results['documents'][0])):
+            knowledge_items.append({
+                "question": results['metadatas'][0][i]['question'],
+                "answer": results['documents'][0][i],
+                "category": results['metadatas'][0][i]['category'],
+                "distance": results['distances'][0][i]
+            })
+            
+        return knowledge_items</code></pre>
+
+                    <h2>Étape 5 : Interface Streamlit</h2>
+                    <pre><code># app.py
+import streamlit as st
+from chatbot_engine import ChatbotEngine
+from knowledge_base import KnowledgeBase
+from config import Config
+import time
+
+# Configuration de la page
+st.set_page_config(
+    page_title=Config.PAGE_TITLE,
+    page_icon=Config.PAGE_ICON,
+    layout="wide"
+)
+
+# Initialisation du session state
+if "chatbot" not in st.session_state:
+    st.session_state.chatbot = ChatbotEngine(Config.OPENAI_API_KEY)
+    
+if "knowledge_base" not in st.session_state:
+    st.session_state.knowledge_base = KnowledgeBase()
+    
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# Interface utilisateur
+def main():
+    st.title("🤖 ChatBot IA - Assistant Tech")
+    st.markdown("---")
+    
+    # Sidebar avec options
+    with st.sidebar:
+        st.header("⚙️ Options")
+        
+        # Bouton pour effacer l'historique
+        if st.button("🗑️ Effacer l'historique"):
+            st.session_state.messages = []
+            st.session_state.chatbot.clear_history()
+            st.success("Historique effacé!")
+            
+        # Paramètres avancés
+        st.subheader("Paramètres")
+        temperature = st.slider("Créativité", 0.0, 1.0, Config.TEMPERATURE)
+        max_tokens = st.slider("Longueur réponse", 50, 300, Config.MAX_TOKENS)
+        
+        # Mode recherche dans la base de connaissances
+        use_knowledge = st.checkbox("Utiliser la base de connaissances", True)
+        
+        # Statistiques
+        st.subheader("📊 Statistiques")
+        st.metric("Messages envoyés", len(st.session_state.messages))
+        
+    # Zone de chat principale
+    chat_container = st.container()
+    
+    with chat_container:
+        # Afficher l'historique des messages
+        for message in st.session_state.messages:
+            with st.chat_message(message["role"]):
+                st.write(message["content"])
+                if "timestamp" in message:
+                    st.caption(f"🕒 {message['timestamp']}")
+    
+    # Zone de saisie
+    if prompt := st.chat_input("Tapez votre message ici..."):
+        # Ajouter le message utilisateur
+        user_message = {
+            "role": "user",
+            "content": prompt,
+            "timestamp": time.strftime("%H:%M:%S")
+        }
+        st.session_state.messages.append(user_message)
+        
+        # Afficher le message utilisateur
+        with st.chat_message("user"):
+            st.write(prompt)
+            st.caption(f"🕒 {user_message['timestamp']}")
+        
+        # Recherche dans la base de connaissances
+        relevant_knowledge = ""
+        if use_knowledge:
+            knowledge_results = st.session_state.knowledge_base.search_knowledge(prompt)
+            if knowledge_results and knowledge_results[0]["distance"] < 0.7:
+                relevant_knowledge = f"\n\nInformation pertinente : {knowledge_results[0]['answer']}"
+        
+        # Obtenir la réponse du chatbot
+        with st.chat_message("assistant"):
+            with st.spinner("🤔 Réflexion en cours..."):
+                enhanced_prompt = prompt + relevant_knowledge
+                response = st.session_state.chatbot.get_response(enhanced_prompt)
+                
+                st.write(response)
+                
+                # Ajouter la réponse à l'historique
+                bot_message = {
+                    "role": "assistant",
+                    "content": response,
+                    "timestamp": time.strftime("%H:%M:%S")
+                }
+                st.session_state.messages.append(bot_message)
+                st.caption(f"🕒 {bot_message['timestamp']}")
+
+if __name__ == "__main__":
+    main()</code></pre>
+
+                    <h2>Étape 6 : Fonctionnalités Avancées</h2>
+
+                    <h3>Système de Personnalités</h3>
+                    <pre><code># personalities.py
+class PersonalityManager:
+    PERSONALITIES = {
+        "professionnel": {
+            "name": "Assistant Professionnel",
+            "prompt": "Tu es un assistant professionnel, formel et précis.",
+            "emoji": "👔"
+        },
+        "amical": {
+            "name": "Assistant Amical", 
+            "prompt": "Tu es un assistant amical, décontracté et encourageant.",
+            "emoji": "😊"
+        },
+        "expert": {
+            "name": "Expert Technique",
+            "prompt": "Tu es un expert technique qui donne des réponses détaillées et précises.",
+            "emoji": "🔬"
+        }
+    }
+    
+    @classmethod
+    def get_personality(cls, personality_key: str) -> dict:
+        return cls.PERSONALITIES.get(personality_key, cls.PERSONALITIES["professionnel"])</code></pre>
+
+                    <h3>Analyse de Sentiment</h3>
+                    <pre><code># sentiment_analyzer.py
+from transformers import pipeline
+
+class SentimentAnalyzer:
+    def __init__(self):
+        self.analyzer = pipeline("sentiment-analysis", 
+                               model="nlptown/bert-base-multilingual-uncased-sentiment")
+    
+    def analyze(self, text: str) -> dict:
+        result = self.analyzer(text)[0]
+        return {
+            "sentiment": result["label"],
+            "confidence": result["score"]
+        }</code></pre>
+
+                    <h3>Export de Conversations</h3>
+                    <pre><code># export_utils.py
+import json
+import csv
+from datetime import datetime
+
+def export_to_json(messages: list) -> str:
+    """Exporter en JSON"""
+    export_data = {
+        "export_date": datetime.now().isoformat(),
+        "total_messages": len(messages),
+        "conversation": messages
+    }
+    return json.dumps(export_data, indent=2, ensure_ascii=False)
+
+def export_to_csv(messages: list) -> str:
+    """Exporter en CSV"""
+    import io
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["Role", "Content", "Timestamp"])
+    
+    for msg in messages:
+        writer.writerow([
+            msg["role"],
+            msg["content"],
+            msg.get("timestamp", "")
+        ])
+    
+    return output.getvalue()</code></pre>
+
+                    <h2>Étape 7 : Tests et Validation</h2>
+                    <pre><code># test_chatbot.py
+import unittest
+from chatbot_engine import ChatbotEngine
+from knowledge_base import KnowledgeBase
+
+class TestChatbot(unittest.TestCase):
+    def setUp(self):
+        self.chatbot = ChatbotEngine("test-key")
+        self.kb = KnowledgeBase()
+    
+    def test_message_history(self):
+        self.chatbot.add_message("user", "Test message")
+        self.assertEqual(len(self.chatbot.conversation_history), 1)
+    
+    def test_knowledge_search(self):
+        results = self.kb.search_knowledge("intelligence artificielle")
+        self.assertGreater(len(results), 0)
+    
+    def test_clear_history(self):
+        self.chatbot.add_message("user", "Test")
+        self.chatbot.clear_history()
+        self.assertEqual(len(self.chatbot.conversation_history), 0)
+
+if __name__ == "__main__":
+    unittest.main()</code></pre>
+
+                    <h2>Étape 8 : Déploiement</h2>
+
+                    <h3>Fichier de Configuration Docker</h3>
+                    <pre><code># Dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+
+EXPOSE 8501
+
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]</code></pre>
+
+                    <h3>Déploiement sur Streamlit Cloud</h3>
+                    <ol>
+                        <li>Pusher le code sur GitHub</li>
+                        <li>Connecter le repo à Streamlit Cloud</li>
+                        <li>Configurer les variables d'environnement</li>
+                        <li>Déployer automatiquement</li>
+                    </ol>
+
+                    <h2>Fonctionnalités Bonus</h2>
+
+                    <h3>Reconnaissance Vocale</h3>
+                    <pre><code># voice_recognition.py
+import speech_recognition as sr
+import pyttsx3
+
+class VoiceInterface:
+    def __init__(self):
+        self.recognizer = sr.Recognizer()
+        self.tts = pyttsx3.init()
+        
+    def listen(self) -> str:
+        with sr.Microphone() as source:
+            audio = self.recognizer.listen(source)
+            try:
+                return self.recognizer.recognize_google(audio, language='fr-FR')
+            except:
+                return ""
+    
+    def speak(self, text: str):
+        self.tts.say(text)
+        self.tts.runAndWait()</code></pre>
+
+                    <h3>Intégration API</h3>
+                    <pre><code># api_integration.py
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class ChatRequest(BaseModel):
+    message: str
+    user_id: str
+
+class ChatResponse(BaseModel):
+    response: str
+    timestamp: str
+
+@app.post("/chat", response_model=ChatResponse)
+async def chat_endpoint(request: ChatRequest):
+    # Logique du chatbot
+    response = chatbot.get_response(request.message)
+    
+    return ChatResponse(
+        response=response,
+        timestamp=datetime.now().isoformat()
+    )</code></pre>
+
+                    <h2>Optimisations et Bonnes Pratiques</h2>
+
+                    <h3>Gestion d'Erreurs</h3>
+                    <ul>
+                        <li><strong>Try-catch</strong> : Gestion des erreurs API</li>
+                        <li><strong>Fallback responses</strong> : Réponses de secours</li>
+                        <li><strong>Rate limiting</strong> : Limitation des requêtes</li>
+                        <li><strong>Logging</strong> : Traçabilité des erreurs</li>
+                    </ul>
+
+                    <h3>Performance</h3>
+                    <ul>
+                        <li><strong>Cache</strong> : Mise en cache des réponses fréquentes</li>
+                        <li><strong>Async</strong> : Traitement asynchrone</li>
+                        <li><strong>Batch processing</strong> : Traitement par lots</li>
+                        <li><strong>Model optimization</strong> : Modèles légers</li>
+                    </ul>
+
+                    <h2>Sécurité</h2>
+                    <ul>
+                        <li><strong>Variables d'environnement</strong> : Clés API sécurisées</li>
+                        <li><strong>Input validation</strong> : Validation des entrées</li>
+                        <li><strong>Rate limiting</strong> : Protection contre le spam</li>
+                        <li><strong>Content filtering</strong> : Filtrage de contenu</li>
+                    </ul>
+
+                    <h2>Lancement de l'Application</h2>
+                    <pre><code># Commande pour lancer
+streamlit run app.py
+
+# Avec configuration personnalisée
+streamlit run app.py --server.port 8080 --server.address 0.0.0.0</code></pre>
+
+                    <h2>Conclusion</h2>
+                    <p>Félicitations ! Vous avez créé un chatbot IA complet avec :</p>
+                    <ul>
+                        <li>Interface utilisateur moderne avec Streamlit</li>
+                        <li>Intégration GPT pour des réponses intelligentes</li>
+                        <li>Base de connaissances avec recherche sémantique</li>
+                        <li>Historique de conversation persistant</li>
+                        <li>Fonctionnalités avancées (export, personnalités)</li>
+                    </ul>
+
+                    <p>Ce chatbot peut être étendu avec de nombreuses fonctionnalités : reconnaissance vocale, intégration API, analyse de sentiment, et bien plus encore.</p>
+
+                    <p>Besoin d'aide pour développer votre chatbot personnalisé ? <a href="contact.html">Contactez-moi</a> pour un accompagnement sur mesure.</p>
+                </article>
+
+                <aside class="article-sidebar">
+                    <div class="author-card">
+                        <img src="profil.png" alt="Samba SY" class="author-image">
+                        <h3>Samba SY</h3>
+                        <p>Expert en IA et NLP spécialisé dans le développement de chatbots intelligents et d'applications conversationnelles.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="related-articles">
+                        <h3>Articles Connexes</h3>
+                        <div class="related-item">
+                            <a href="article-fake-news.html">Détection de Fake News : Techniques de NLP Avancées</a>
+                        </div>
+                        <div class="related-item">
+                            <a href="article-computer-vision.html">Computer Vision : Applications Pratiques</a>
+                        </div>
+                    </div>
+
+                    <div class="cta-sidebar">
+                        <h3>Projet Chatbot ?</h3>
+                        <p>Développons ensemble votre assistant IA personnalisé</p>
+                        <a href="devis.html" class="btn-primary">Demander un Devis</a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="index.html"><h3><span class="logo-samba">Samba</span><span class="logo-sy">SY</span></h3></a>
+                    <p>Expert en Data Science, IA et Cloud Computing</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="about.html">À Propos</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="projects.html">Projets</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html#ai">Intelligence Artificielle</a></li>
+                        <li><a href="services.html#cloud">Cloud & DevOps</a></li>
+                        <li><a href="services.html#data">Data Analytics</a></li>
+                        <li><a href="services.html#dev">Développement</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> +221 77 378 48 14</p>
+                        <p><i class="fas fa-envelope"></i> sambasy837@gmail.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Dakar, Sénégal</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Samba SY. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

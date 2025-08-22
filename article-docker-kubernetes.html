@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déployer une Application ML avec Docker et Kubernetes - Samba SY</title>
+    <meta name="description" content="Tutoriel step-by-step pour containeriser et orchestrer vos modèles de machine learning en production.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/article.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><h2><span class="logo-samba">Samba</span><span class="logo-sy">SY</span></h2></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="about.html" class="nav-link">À Propos</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="projects.html" class="nav-link">Projets</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="devis.html" class="nav-link cta-btn">Demander un Devis</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="container">
+            <div class="article-meta">
+                <a href="blog.html" class="back-link"><i class="fas fa-arrow-left"></i> Retour au Blog</a>
+                <div class="article-info">
+                    <span class="category">Tutoriel</span>
+                    <span class="date">02 Janvier 2024</span>
+                    <span class="reading-time"><i class="fas fa-clock"></i> 12 min de lecture</span>
+                </div>
+            </div>
+            <h1 class="article-title">Déployer une Application ML avec Docker et Kubernetes</h1>
+            <p class="article-subtitle">Tutoriel step-by-step pour containeriser et orchestrer vos modèles de machine learning en production.</p>
+            <div class="article-author">
+                <div class="author-info">
+                    <img src="profil.png" alt="Samba SY" class="author-avatar">
+                    <div>
+                        <span class="author-name">Samba SY</span>
+                        <span class="author-title">Expert MLOps & DevOps</span>
+                    </div>
+                </div>
+                <div class="article-tags">
+                    <span>Docker</span>
+                    <span>Kubernetes</span>
+                    <span>MLOps</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Content -->
+    <main class="article-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <article class="article-body">
+                    <h2>Introduction au MLOps</h2>
+                    <p>Le déploiement de modèles de machine learning en production présente des défis uniques : scalabilité, reproductibilité, monitoring et maintenance. Docker et Kubernetes forment une combinaison puissante pour résoudre ces problématiques en offrant containerisation et orchestration.</p>
+
+                    <h2>Prérequis</h2>
+                    <ul>
+                        <li>Connaissances de base en Python et ML</li>
+                        <li>Docker installé sur votre machine</li>
+                        <li>Kubectl et accès à un cluster Kubernetes</li>
+                        <li>Un modèle ML entraîné (nous utiliserons scikit-learn)</li>
+                    </ul>
+
+                    <h2>Étape 1 : Créer l'Application ML</h2>
+                    <p>Commençons par créer une API simple avec Flask pour servir notre modèle :</p>
+
+                    <h3>Structure du Projet</h3>
+                    <pre><code>ml-app/
+├── app.py
+├── model.py
+├── requirements.txt
+├── Dockerfile
+├── model.pkl
+└── k8s/
+    ├── deployment.yaml
+    ├── service.yaml
+    └── ingress.yaml</code></pre>
+
+                    <h3>Code de l'Application (app.py)</h3>
+                    <pre><code>from flask import Flask, request, jsonify
+import joblib
+import numpy as np
+import logging
+
+app = Flask(__name__)
+logging.basicConfig(level=logging.INFO)
+
+# Charger le modèle au démarrage
+model = joblib.load('model.pkl')
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({'status': 'healthy'}), 200
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        data = request.get_json()
+        features = np.array(data['features']).reshape(1, -1)
+        
+        prediction = model.predict(features)[0]
+        probability = model.predict_proba(features)[0].max()
+        
+        return jsonify({
+            'prediction': int(prediction),
+            'confidence': float(probability),
+            'status': 'success'
+        })
+    
+    except Exception as e:
+        app.logger.error(f"Erreur de prédiction: {str(e)}")
+        return jsonify({'error': str(e)}), 400
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)</code></pre>
+
+                    <h3>Requirements (requirements.txt)</h3>
+                    <pre><code>Flask==2.3.3
+scikit-learn==1.3.0
+joblib==1.3.2
+numpy==1.24.3
+gunicorn==21.2.0</code></pre>
+
+                    <h2>Étape 2 : Containerisation avec Docker</h2>
+
+                    <h3>Dockerfile Optimisé</h3>
+                    <pre><code># Utiliser une image Python légère
+FROM python:3.9-slim
+
+# Définir le répertoire de travail
+WORKDIR /app
+
+# Copier les requirements et installer les dépendances
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier le code de l'application
+COPY . .
+
+# Créer un utilisateur non-root pour la sécurité
+RUN useradd -m -u 1000 mluser && chown -R mluser:mluser /app
+USER mluser
+
+# Exposer le port
+EXPOSE 5000
+
+# Utiliser Gunicorn pour la production
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "app:app"]</code></pre>
+
+                    <h3>Construction de l'Image</h3>
+                    <pre><code># Construire l'image
+docker build -t ml-app:v1.0 .
+
+# Tester localement
+docker run -p 5000:5000 ml-app:v1.0
+
+# Tester l'API
+curl -X POST http://localhost:5000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"features": [5.1, 3.5, 1.4, 0.2]}'</code></pre>
+
+                    <h2>Étape 3 : Optimisation Docker</h2>
+
+                    <h3>Multi-stage Build</h3>
+                    <pre><code># Build stage
+FROM python:3.9-slim as builder
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+# Production stage
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Copier les packages installés
+COPY --from=builder /root/.local /root/.local
+COPY . .
+
+# Mettre à jour PATH
+ENV PATH=/root/.local/bin:$PATH
+
+RUN useradd -m -u 1000 mluser && chown -R mluser:mluser /app
+USER mluser
+
+EXPOSE 5000
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "app:app"]</code></pre>
+
+                    <h2>Étape 4 : Déploiement Kubernetes</h2>
+
+                    <h3>Deployment (k8s/deployment.yaml)</h3>
+                    <pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-app-deployment
+  labels:
+    app: ml-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ml-app
+  template:
+    metadata:
+      labels:
+        app: ml-app
+    spec:
+      containers:
+      - name: ml-app
+        image: ml-app:v1.0
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        env:
+        - name: FLASK_ENV
+          value: "production"</code></pre>
+
+                    <h3>Service (k8s/service.yaml)</h3>
+                    <pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: ml-app-service
+spec:
+  selector:
+    app: ml-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: ClusterIP</code></pre>
+
+                    <h3>Ingress (k8s/ingress.yaml)</h3>
+                    <pre><code>apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ml-app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+spec:
+  rules:
+  - host: ml-app.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ml-app-service
+            port:
+              number: 80</code></pre>
+
+                    <h2>Étape 5 : Déploiement et Gestion</h2>
+
+                    <h3>Commandes de Déploiement</h3>
+                    <pre><code># Appliquer les configurations
+kubectl apply -f k8s/
+
+# Vérifier le déploiement
+kubectl get deployments
+kubectl get pods
+kubectl get services
+
+# Voir les logs
+kubectl logs -f deployment/ml-app-deployment
+
+# Mise à jour rolling
+kubectl set image deployment/ml-app-deployment ml-app=ml-app:v1.1</code></pre>
+
+                    <h2>Étape 6 : Monitoring et Observabilité</h2>
+
+                    <h3>ConfigMap pour la Configuration</h3>
+                    <pre><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ml-app-config
+data:
+  MODEL_VERSION: "v1.0"
+  LOG_LEVEL: "INFO"
+  MAX_REQUESTS_PER_MINUTE: "1000"</code></pre>
+
+                    <h3>Métriques Prometheus</h3>
+                    <pre><code># Ajouter à app.py
+from prometheus_client import Counter, Histogram, generate_latest
+
+REQUEST_COUNT = Counter('ml_requests_total', 'Total ML requests')
+REQUEST_LATENCY = Histogram('ml_request_duration_seconds', 'ML request latency')
+
+@app.route('/metrics')
+def metrics():
+    return generate_latest()
+
+@REQUEST_LATENCY.time()
+@app.route('/predict', methods=['POST'])
+def predict():
+    REQUEST_COUNT.inc()
+    # ... reste du code</code></pre>
+
+                    <h2>Étape 7 : Sécurité et Bonnes Pratiques</h2>
+
+                    <h3>NetworkPolicy</h3>
+                    <pre><code>apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ml-app-netpol
+spec:
+  podSelector:
+    matchLabels:
+      app: ml-app
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 5000</code></pre>
+
+                    <h3>Secrets pour les Données Sensibles</h3>
+                    <pre><code># Créer un secret
+kubectl create secret generic ml-app-secrets \
+  --from-literal=api-key=your-api-key \
+  --from-literal=db-password=your-password
+
+# Utiliser dans le deployment
+env:
+- name: API_KEY
+  valueFrom:
+    secretKeyRef:
+      name: ml-app-secrets
+      key: api-key</code></pre>
+
+                    <h2>Étape 8 : CI/CD Pipeline</h2>
+
+                    <h3>GitHub Actions Workflow</h3>
+                    <pre><code>name: ML App CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build Docker image
+      run: |
+        docker build -t ${{ secrets.REGISTRY }}/ml-app:${{ github.sha }} .
+        
+    - name: Push to registry
+      run: |
+        echo ${{ secrets.REGISTRY_PASSWORD }} | docker login -u ${{ secrets.REGISTRY_USER }} --password-stdin
+        docker push ${{ secrets.REGISTRY }}/ml-app:${{ github.sha }}
+        
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl set image deployment/ml-app-deployment ml-app=${{ secrets.REGISTRY }}/ml-app:${{ github.sha }}</code></pre>
+
+                    <h2>Étape 9 : Scaling et Performance</h2>
+
+                    <h3>Horizontal Pod Autoscaler</h3>
+                    <pre><code>apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ml-app-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ml-app-deployment
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80</code></pre>
+
+                    <h2>Tests et Validation</h2>
+
+                    <h3>Test de Charge</h3>
+                    <pre><code># Utiliser Apache Bench
+ab -n 1000 -c 10 -p data.json -T application/json http://ml-app.example.com/predict
+
+# Ou avec Python
+import requests
+import concurrent.futures
+import time
+
+def test_prediction():
+    response = requests.post('http://ml-app.example.com/predict',
+                           json={'features': [5.1, 3.5, 1.4, 0.2]})
+    return response.status_code
+
+# Test concurrent
+with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
+    futures = [executor.submit(test_prediction) for _ in range(1000)]
+    results = [future.result() for future in futures]</code></pre>
+
+                    <h2>Troubleshooting</h2>
+
+                    <h3>Commandes de Debug</h3>
+                    <pre><code># Vérifier les pods
+kubectl describe pod <pod-name>
+
+# Accéder à un pod
+kubectl exec -it <pod-name> -- /bin/bash
+
+# Voir les événements
+kubectl get events --sort-by=.metadata.creationTimestamp
+
+# Vérifier les ressources
+kubectl top pods
+kubectl top nodes</code></pre>
+
+                    <h2>Conclusion</h2>
+                    <p>Ce tutoriel vous a guidé à travers le processus complet de déploiement d'une application ML avec Docker et Kubernetes. Cette approche offre :</p>
+                    <ul>
+                        <li><strong>Scalabilité automatique</strong> selon la demande</li>
+                        <li><strong>Haute disponibilité</strong> avec la réplication</li>
+                        <li><strong>Déploiements sans interruption</strong> avec rolling updates</li>
+                        <li><strong>Monitoring intégré</strong> pour la production</li>
+                        <li><strong>Sécurité renforcée</strong> avec les bonnes pratiques K8s</li>
+                    </ul>
+
+                    <p>Cette architecture MLOps robuste vous permettra de déployer et maintenir vos modèles ML en production avec confiance.</p>
+
+                    <p>Besoin d'aide pour implémenter votre pipeline MLOps ? <a href="contact.html">Contactez-moi</a> pour un accompagnement personnalisé.</p>
+                </article>
+
+                <aside class="article-sidebar">
+                    <div class="author-card">
+                        <img src="profil.png" alt="Samba SY" class="author-image">
+                        <h3>Samba SY</h3>
+                        <p>Expert MLOps et DevOps spécialisé dans le déploiement de solutions ML à grande échelle.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="related-articles">
+                        <h3>Articles Connexes</h3>
+                        <div class="related-item">
+                            <a href="article-terraform-cloudformation.html">Infrastructure as Code : Terraform vs CloudFormation</a>
+                        </div>
+                        <div class="related-item">
+                            <a href="article-aws-migration.html">Migration vers AWS : Guide Complet</a>
+                        </div>
+                    </div>
+
+                    <div class="cta-sidebar">
+                        <h3>Projet MLOps ?</h3>
+                        <p>Déployons ensemble vos modèles ML en production</p>
+                        <a href="devis.html" class="btn-primary">Demander un Devis</a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="index.html"><h3><span class="logo-samba">Samba</span><span class="logo-sy">SY</span></h3></a>
+                    <p>Expert en Data Science, IA et Cloud Computing</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="about.html">À Propos</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="projects.html">Projets</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html#ai">Intelligence Artificielle</a></li>
+                        <li><a href="services.html#cloud">Cloud & DevOps</a></li>
+                        <li><a href="services.html#data">Data Analytics</a></li>
+                        <li><a href="services.html#dev">Développement</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> +221 77 378 48 14</p>
+                        <p><i class="fas fa-envelope"></i> sambasy837@gmail.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Dakar, Sénégal</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Samba SY. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
