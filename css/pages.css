@@ -574,9 +574,113 @@
     gap: 1.5rem;
 }
 
+/* Pretty labels/inputs for Devis form */
+.devis-form .form-group {
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.simple-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-actions {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.devis-form .form-group label {
+    font-size: 0.98rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: #ffffff !important;
+    display: block !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.devis-form .form-group input,
+.devis-form .form-group select,
+.devis-form .form-group textarea {
+    width: 100% !important;
+    padding: 0.95rem 1rem !important;
+    background: #1e293b !important;
+    border: 2px solid #6366f1 !important;
+    border-radius: 12px !important;
+    color: #ffffff !important;
+    font-size: 1rem !important;
+    font-family: 'Inter', sans-serif !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+    box-sizing: border-box !important;
+}
+
+.devis-form .form-group input::placeholder,
+.devis-form .form-group textarea::placeholder {
+    color: #ffffff !important;
+    opacity: 0.7 !important;
+    font-style: italic !important;
+}
+
+.devis-form .form-group input:hover,
+.devis-form .form-group select:hover,
+.devis-form .form-group textarea:hover {
+    border-color: rgba(99,102,241,0.45);
+}
+
+.devis-form .form-group input:focus,
+.devis-form .form-group select:focus,
+.devis-form .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+    background: rgba(99,102,241,0.08);
+}
+
+.devis-form .form-group select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%),
+                      linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+}
+
+.devis-form .form-group textarea {
+    min-height: 140px !important;
+    resize: vertical !important;
+    display: block !important;
+    visibility: visible !important;
+    background: #1e293b !important;
+    border: 2px solid #6366f1 !important;
+    color: #ffffff !important;
+}
+
+/* Subtle validity cues */
+.devis-form .form-group input:invalid,
+.devis-form .form-group select:invalid,
+.devis-form .form-group textarea:invalid {
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+.devis-form .form-group input:valid,
+.devis-form .form-group select:valid,
+.devis-form .form-group textarea:valid {
+    border-color: rgba(16, 185, 129, 0.5);
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
+}
+
+.devis-form .form-group {
+    display: flex !important;
+    flex-direction: column !important;
+    visibility: visible !important;
 }
 
 .form-group label {
@@ -692,8 +796,60 @@
 }
 
 .devis-container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+}
+
+/* Devis two-column layout */
+.devis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.devis-sidebar {
+    position: sticky;
+    top: 100px;
+    background: var(--dark-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+.devis-sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.devis-sidebar .tip {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: var(--dark-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.devis-sidebar .tip i {
+    color: var(--accent-color);
+}
+
+.devis-sidebar .contact-mini {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(139,92,246,0.08));
+    border: 1px solid rgba(99,102,241,0.3);
+}
+
+.devis-main {
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
 }
 
 .form-progress {
@@ -740,20 +896,122 @@
     padding: 3rem;
     border-radius: 20px;
     border: 1px solid var(--border-color);
+    min-height: 500px;
+    width: 100%;
+}
+
+/* Section prioritaire pour le contenu client */
+.content-priority {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
+    border: 2px solid var(--accent-color);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0;
+    position: relative;
+}
+
+.content-priority::before {
+    content: '⭐';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--dark-card);
+    padding: 0 8px;
+    font-size: 1.2rem;
+}
+
+.content-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.content-header h3 {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.content-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Emphasis for 'Contenu à intégrer' block */
+.content-highlight {
+    border: 1px dashed var(--accent-color);
+    background: rgba(99, 102, 241, 0.08);
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+.content-highlight label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.content-highlight i {
+    color: var(--accent-color);
+}
+
+.content-highlight textarea {
+    min-height: 150px;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+.field-help {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Attachments list */
+.attachments-list {
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.attachments-list ul {
+    margin: 0.5rem 0 0 1rem;
+}
+
+.attachments-list li {
+    list-style: disc;
+    margin-bottom: 0.25rem;
 }
 
 .form-step {
-    display: none;
+    display: none !important;
 }
 
 .form-step.active {
-    display: block;
+    display: block !important;
+    background: #1e293b !important;
+    border: 1px solid #6366f1 !important;
+    border-radius: 16px !important;
+    padding: 1.5rem !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    color: #ffffff !important;
 }
 
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
+    margin-top: 1rem;
 }
 
 .form-group.full-width {
@@ -824,7 +1082,22 @@
 .form-navigation {
     display: flex;
     justify-content: space-between;
-    margin-top: 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    position: sticky;
+    bottom: 0;
+    background: var(--dark-card);
+    z-index: 10;
+}
+
+@media (max-width: 1024px) {
+    .devis-grid {
+        grid-template-columns: 1fr;
+    }
+    .devis-sidebar {
+        position: static;
+    }
 }
 
 /* Why Choose & Testimonials */

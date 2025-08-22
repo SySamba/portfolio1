@@ -15,7 +15,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>Samba<span class="highlight">SY</span></h2>
+                <a href="index.html"><h2><span class="logo-samba">Samba</span><span class="logo-sy">SY</span></h2></a>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">Accueil</a></li>
@@ -62,203 +62,102 @@
     <section class="devis-form-section">
         <div class="container">
             <div class="devis-container">
-                <div class="form-progress">
-                    <div class="progress-step active" data-step="1">
-                        <div class="step-number">1</div>
-                        <span>Informations</span>
-                    </div>
-                    <div class="progress-step" data-step="2">
-                        <div class="step-number">2</div>
-                        <span>Projet</span>
-                    </div>
-                    <div class="progress-step" data-step="3">
-                        <div class="step-number">3</div>
-                        <span>Détails</span>
-                    </div>
-                    <div class="progress-step" data-step="4">
-                        <div class="step-number">4</div>
-                        <span>Validation</span>
+                <div class="devis-grid">
+                    <aside class="devis-sidebar">
+                        <h3><i class="fas fa-lightbulb"></i> Conseils Rapides</h3>
+                        <div class="tip"><i class="fas fa-check-circle"></i><div>Donnez un titre clair à votre projet et décrivez vos objectifs en quelques phrases.</div></div>
+                        <div class="tip"><i class="fas fa-layer-group"></i><div>Sélectionnez le type de projet le plus proche de votre besoin. Vous pourrez préciser ensuite.</div></div>
+                        <div class="tip"><i class="fas fa-paperclip"></i><div>Ajoutez des maquettes, logos, textes… cela accélère l’estimation.</div></div>
+                        <div class="contact-mini">
+                            <strong>Besoin d’aide ?</strong>
+                            <p style="margin: 0.5rem 0 0; color: var(--text-secondary);">
+                                <i class="fas fa-envelope"></i> sambasy837@gmail.com<br>
+                                <i class="fas fa-phone"></i> +221 77 378 48 14
+                            </p>
+                        </div>
+                    </aside>
+
+                    <div class="devis-main">
+
+                        <form id="devis-form" class="devis-form">
+                            <!-- Champ anti-spam (honeypot) -->
+                            <div style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">
+                                <label for="companyWebsite">Ne pas remplir ce champ</label>
+                                <input type="text" id="companyWebsite" name="companyWebsite" tabindex="-1" autocomplete="off">
+                            </div>
+                            
+                            <h2 style="color: #ffffff; margin-bottom: 2rem; text-align: center;">Demander un Devis</h2>
+                            
+                            <div class="simple-form-grid">
+                                <div class="form-group">
+                                    <label for="fullName">Nom complet *</label>
+                                    <input type="text" id="fullName" name="fullName" placeholder="Votre nom et prénom" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email *</label>
+                                    <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="phone">Téléphone *</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="+221 77 123 45 67" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="company">Entreprise</label>
+                                    <input type="text" id="company" name="company" placeholder="Nom de votre société (optionnel)">
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="projectType">Type de projet *</label>
+                                    <select id="projectType" name="projectType" required>
+                                        <option value="">Sélectionnez le type de projet</option>
+                                        <option value="web">Site Web / E-commerce</option>
+                                        <option value="data">Analyse de Données / BI</option>
+                                        <option value="ai">Intelligence Artificielle</option>
+                                        <option value="cloud">Cloud / DevOps</option>
+                                        <option value="mobile">Application Mobile</option>
+                                        <option value="other">Autre</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="budget">Budget estimé</label>
+                                    <select id="budget" name="budget">
+                                        <option value="">Sélectionnez votre budget</option>
+                                        <option value="< 500k">Moins de 500 000 FCFA</option>
+                                        <option value="500k-1M">500 000 - 1 000 000 FCFA</option>
+                                        <option value="1M-2M">1 000 000 - 2 000 000 FCFA</option>
+                                        <option value="2M+">Plus de 2 000 000 FCFA</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="projectDescription">Description du projet *</label>
+                                    <textarea id="projectDescription" name="projectDescription" rows="5" placeholder="Décrivez votre projet, vos objectifs, les fonctionnalités souhaitées..." required></textarea>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="timeline">Délai souhaité</label>
+                                    <select id="timeline" name="timeline">
+                                        <option value="">Sélectionnez un délai</option>
+                                        <option value="urgent">Urgent (< 1 mois)</option>
+                                        <option value="court">Court terme (1-3 mois)</option>
+                                        <option value="moyen">Moyen terme (3-6 mois)</option>
+                                        <option value="flexible">Flexible</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary submit-btn">
+                                    <i class="fas fa-paper-plane"></i> Envoyer la Demande
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
-                <form id="devis-form" class="devis-form">
-                    <!-- Étape 1: Informations personnelles -->
-                    <div class="form-step active" data-step="1">
-                        <h2>Vos Informations</h2>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="firstName">Prénom *</label>
-                                <input type="text" id="firstName" name="firstName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Nom *</label>
-                                <input type="text" id="lastName" name="lastName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Téléphone *</label>
-                                <input type="tel" id="phone" name="phone" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="company">Entreprise</label>
-                                <input type="text" id="company" name="company">
-                            </div>
-                            <div class="form-group">
-                                <label for="position">Poste</label>
-                                <input type="text" id="position" name="position">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Étape 2: Type de projet -->
-                    <div class="form-step" data-step="2">
-                        <h2>Type de Projet</h2>
-                        <div class="project-types">
-                            <div class="project-type-card">
-                                <input type="radio" id="ai-project" name="projectType" value="ai">
-                                <label for="ai-project">
-                                    <div class="card-icon">
-                                        <i class="fas fa-brain"></i>
-                                    </div>
-                                    <h3>Intelligence Artificielle</h3>
-                                    <p>Machine Learning, NLP, Computer Vision, Chatbots</p>
-                                    <div class="price-range">À partir de 1M FCFA</div>
-                                </label>
-                            </div>
-                            <div class="project-type-card">
-                                <input type="radio" id="cloud-project" name="projectType" value="cloud">
-                                <label for="cloud-project">
-                                    <div class="card-icon">
-                                        <i class="fas fa-cloud"></i>
-                                    </div>
-                                    <h3>Cloud & DevOps</h3>
-                                    <p>AWS, Docker, Kubernetes, CI/CD, Infrastructure</p>
-                                    <div class="price-range">À partir de 800K FCFA</div>
-                                </label>
-                            </div>
-                            <div class="project-type-card">
-                                <input type="radio" id="data-project" name="projectType" value="data">
-                                <label for="data-project">
-                                    <div class="card-icon">
-                                        <i class="fas fa-chart-line"></i>
-                                    </div>
-                                    <h3>Data Analytics</h3>
-                                    <p>Tableaux de bord, BI, ETL, Analyse prédictive</p>
-                                    <div class="price-range">À partir de 500K FCFA</div>
-                                </label>
-                            </div>
-                            <div class="project-type-card">
-                                <input type="radio" id="web-project" name="projectType" value="web">
-                                <label for="web-project">
-                                    <div class="card-icon">
-                                        <i class="fas fa-code"></i>
-                                    </div>
-                                    <h3>Développement Web</h3>
-                                    <p>Sites web, E-commerce, Applications, APIs</p>
-                                    <div class="price-range">À partir de 300K FCFA</div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Étape 3: Détails du projet -->
-                    <div class="form-step" data-step="3">
-                        <h2>Détails du Projet</h2>
-                        <div class="form-grid">
-                            <div class="form-group full-width">
-                                <label for="projectTitle">Titre du Projet *</label>
-                                <input type="text" id="projectTitle" name="projectTitle" required>
-                            </div>
-                            <div class="form-group full-width">
-                                <label for="projectDescription">Description Détaillée *</label>
-                                <textarea id="projectDescription" name="projectDescription" rows="6" placeholder="Décrivez votre projet, vos objectifs, les fonctionnalités souhaitées..." required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="budget">Budget Estimé *</label>
-                                <select id="budget" name="budget" required>
-                                    <option value="">Sélectionnez votre budget</option>
-                                    <option value="< 500k">Moins de 500 000 FCFA</option>
-                                    <option value="500k-1M">500 000 - 1 000 000 FCFA</option>
-                                    <option value="1M-2M">1 000 000 - 2 000 000 FCFA</option>
-                                    <option value="2M-5M">2 000 000 - 5 000 000 FCFA</option>
-                                    <option value="> 5M">Plus de 5 000 000 FCFA</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="timeline">Délai Souhaité *</label>
-                                <select id="timeline" name="timeline" required>
-                                    <option value="">Sélectionnez un délai</option>
-                                    <option value="urgent">Urgent (< 1 mois)</option>
-                                    <option value="court">Court terme (1-3 mois)</option>
-                                    <option value="moyen">Moyen terme (3-6 mois)</option>
-                                    <option value="long">Long terme (> 6 mois)</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="priority">Priorité</label>
-                                <select id="priority" name="priority">
-                                    <option value="normale">Normale</option>
-                                    <option value="haute">Haute</option>
-                                    <option value="critique">Critique</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="team">Équipe Existante</label>
-                                <select id="team" name="team">
-                                    <option value="aucune">Aucune équipe technique</option>
-                                    <option value="partielle">Équipe technique partielle</option>
-                                    <option value="complete">Équipe technique complète</option>
-                                </select>
-                            </div>
-                            <div class="form-group full-width">
-                                <label for="requirements">Exigences Techniques</label>
-                                <textarea id="requirements" name="requirements" rows="4" placeholder="Technologies spécifiques, intégrations requises, contraintes techniques..."></textarea>
-                            </div>
-                            <div class="form-group full-width">
-                                <label for="additionalInfo">Informations Complémentaires</label>
-                                <textarea id="additionalInfo" name="additionalInfo" rows="3" placeholder="Toute information supplémentaire utile pour l'estimation..."></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Étape 4: Validation -->
-                    <div class="form-step" data-step="4">
-                        <h2>Récapitulatif</h2>
-                        <div class="summary-container">
-                            <div class="summary-section">
-                                <h3>Informations de Contact</h3>
-                                <div class="summary-content" id="contact-summary"></div>
-                            </div>
-                            <div class="summary-section">
-                                <h3>Détails du Projet</h3>
-                                <div class="summary-content" id="project-summary"></div>
-                            </div>
-                        </div>
-                        <div class="terms-agreement">
-                            <label class="checkbox-container">
-                                <input type="checkbox" id="terms" name="terms" required>
-                                <span class="checkmark"></span>
-                                J'accepte les <a href="#" target="_blank">conditions générales</a> et la <a href="#" target="_blank">politique de confidentialité</a>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Navigation buttons -->
-                    <div class="form-navigation">
-                        <button type="button" class="btn-secondary prev-btn" style="display: none;">
-                            <i class="fas fa-arrow-left"></i> Précédent
-                        </button>
-                        <button type="button" class="btn-primary next-btn">
-                            Suivant <i class="fas fa-arrow-right"></i>
-                        </button>
-                        <button type="submit" class="btn-primary submit-btn" style="display: none;">
-                            <i class="fas fa-paper-plane"></i> Envoyer la Demande
-                        </button>
-                    </div>
-                </form>
             </div>
         </div>
     </section>
@@ -270,99 +169,44 @@
             <div class="benefits-grid">
                 <div class="benefit-card">
                     <div class="benefit-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <h3>Expertise Reconnue</h3>
-                    <p>Certifications AWS, expertise en IA et 3+ années d'expérience dans des projets innovants.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-clock"></i>
+                        <i class="fas fa-rocket"></i>
                     </div>
                     <h3>Livraison Rapide</h3>
-                    <p>Méthodologie agile et processus optimisés pour des livraisons dans les délais convenus.</p>
+                    <p>Respect des délais convenus avec une communication transparente tout au long du projet.</p>
                 </div>
                 <div class="benefit-card">
                     <div class="benefit-icon">
-                        <i class="fas fa-handshake"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Accompagnement Complet</h3>
-                    <p>De la conception au déploiement, je vous accompagne à chaque étape de votre projet.</p>
+                    <h3>Qualité Garantie</h3>
+                    <p>Code propre, sécurisé et optimisé selon les meilleures pratiques du secteur.</p>
                 </div>
                 <div class="benefit-card">
                     <div class="benefit-icon">
-                        <i class="fas fa-tools"></i>
+                        <i class="fas fa-headset"></i>
                     </div>
-                    <h3>Support Technique</h3>
-                    <p>Maintenance et support post-livraison pour assurer la pérennité de vos solutions.</p>
+                    <h3>Support Continu</h3>
+                    <p>Accompagnement personnalisé et support technique après livraison du projet.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Ce Que Disent Mes Clients</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Samba a développé un système d'analyse de données qui a révolutionné notre prise de décision. Son expertise en IA est remarquable."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <h4>Direction Aéroport de Yoff</h4>
-                        <span>Projet Data Analytics</span>
-                    </div>
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Un développeur très professionnel qui a su comprendre nos besoins et livrer une solution parfaitement adaptée à notre entreprise."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <h4>Teranga Numérique</h4>
-                        <span>Développement Web</span>
-                    </div>
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"L'expertise cloud de Samba nous a permis de migrer notre infrastructure avec succès. Un accompagnement de qualité du début à la fin."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <h4>Porokhane Digital</h4>
-                        <span>Solutions Cloud</span>
-                    </div>
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Samba<span class="highlight">SY</span></h3>
+                    <a href="index.html"><h3><span class="logo-samba">Samba</span><span class="logo-sy">SY</span></h3></a>
                     <p>Expert en Data Science, IA et Cloud Computing</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -405,108 +249,39 @@
 
     <script src="js/script.js"></script>
     <script>
-        // Gestion du formulaire multi-étapes
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('devis-form');
-            const steps = document.querySelectorAll('.form-step');
-            const progressSteps = document.querySelectorAll('.progress-step');
-            const nextBtn = document.querySelector('.next-btn');
-            const prevBtn = document.querySelector('.prev-btn');
-            const submitBtn = document.querySelector('.submit-btn');
-            let currentStep = 1;
-
-            function showStep(step) {
-                steps.forEach(s => s.classList.remove('active'));
-                progressSteps.forEach(s => s.classList.remove('active'));
-                
-                document.querySelector(`[data-step="${step}"]`).classList.add('active');
-                document.querySelector(`.progress-step[data-step="${step}"]`).classList.add('active');
-                
-                // Gestion des boutons
-                prevBtn.style.display = step > 1 ? 'block' : 'none';
-                nextBtn.style.display = step < 4 ? 'block' : 'none';
-                submitBtn.style.display = step === 4 ? 'block' : 'none';
-                
-                if (step === 4) {
-                    updateSummary();
-                }
-            }
-
-            function validateStep(step) {
-                const currentStepElement = document.querySelector(`[data-step="${step}"]`);
-                const requiredFields = currentStepElement.querySelectorAll('[required]');
-                
-                for (let field of requiredFields) {
-                    if (!field.value.trim()) {
-                        field.focus();
-                        return false;
-                    }
-                }
-                return true;
-            }
-
-            function updateSummary() {
-                const formData = new FormData(form);
-                
-                // Résumé contact
-                const contactSummary = document.getElementById('contact-summary');
-                contactSummary.innerHTML = `
-                    <p><strong>Nom:</strong> ${formData.get('firstName')} ${formData.get('lastName')}</p>
-                    <p><strong>Email:</strong> ${formData.get('email')}</p>
-                    <p><strong>Téléphone:</strong> ${formData.get('phone')}</p>
-                    ${formData.get('company') ? `<p><strong>Entreprise:</strong> ${formData.get('company')}</p>` : ''}
-                `;
-                
-                // Résumé projet
-                const projectSummary = document.getElementById('project-summary');
-                const projectTypes = {
-                    'ai': 'Intelligence Artificielle',
-                    'cloud': 'Cloud & DevOps',
-                    'data': 'Data Analytics',
-                    'web': 'Développement Web'
-                };
-                
-                projectSummary.innerHTML = `
-                    <p><strong>Type:</strong> ${projectTypes[formData.get('projectType')] || 'Non spécifié'}</p>
-                    <p><strong>Titre:</strong> ${formData.get('projectTitle')}</p>
-                    <p><strong>Budget:</strong> ${formData.get('budget')}</p>
-                    <p><strong>Délai:</strong> ${formData.get('timeline')}</p>
-                    <p><strong>Description:</strong> ${formData.get('projectDescription').substring(0, 100)}...</p>
-                `;
-            }
-
-            nextBtn.addEventListener('click', function() {
-                if (validateStep(currentStep)) {
-                    currentStep++;
-                    showStep(currentStep);
+        // Simple form submission
+        document.getElementById('devis-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const requiredFields = ['fullName', 'email', 'phone', 'projectType', 'projectDescription'];
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                const input = document.getElementById(field);
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = '#ef4444';
+                } else {
+                    input.style.borderColor = '#6366f1';
                 }
             });
-
-            prevBtn.addEventListener('click', function() {
-                currentStep--;
-                showStep(currentStep);
-            });
-
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Animation de soumission
-                submitBtn.textContent = 'Envoi en cours...';
+            
+            if (isValid) {
+                // Simulate form submission
+                const submitBtn = document.querySelector('.submit-btn');
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
                 submitBtn.disabled = true;
                 
-                // Simuler l'envoi
                 setTimeout(() => {
-                    alert('Votre demande de devis a été envoyée avec succès ! Vous recevrez une réponse sous 24h.');
-                    form.reset();
-                    currentStep = 1;
-                    showStep(currentStep);
-                    submitBtn.textContent = 'Envoyer la Demande';
+                    alert('Votre demande de devis a été envoyée avec succès ! Je vous répondrai sous 24h.');
+                    this.reset();
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer la Demande';
                     submitBtn.disabled = false;
                 }, 2000);
-            });
-
-            // Initialiser
-            showStep(currentStep);
+            } else {
+                alert('Veuillez remplir tous les champs obligatoires.');
+            }
         });
     </script>
 </body>
