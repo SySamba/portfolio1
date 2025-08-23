@@ -13,6 +13,34 @@ document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', 
     navMenu.classList.remove('active');
 }));
 
+// Fonction pour mettre en évidence la page active
+function highlightActivePage() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        const href = link.getAttribute('href');
+        
+        // Vérifier si c'est la page d'accueil
+        if ((currentPage === 'index.html' || currentPage === '') && 
+            (href === 'index.html' || href === '#home' || href === '/')) {
+            link.classList.add('active');
+        }
+        // Vérifier les autres pages
+        else if (href && href.includes(currentPage)) {
+            link.classList.add('active');
+        }
+        // Cas spécial pour les liens avec ancres sur la page d'accueil
+        else if (currentPage === 'index.html' && href.startsWith('#')) {
+            // Ne pas marquer comme actif les liens d'ancrage
+        }
+    });
+}
+
+// Appeler la fonction au chargement de la page
+document.addEventListener('DOMContentLoaded', highlightActivePage);
+
 // Animation des barres de compétences
 const observerOptions = {
     threshold: 0.5,

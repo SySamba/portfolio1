@@ -118,27 +118,34 @@ body {
     color: var(--text-secondary);
     text-decoration: none;
     font-weight: 500;
-    font-size: 1.08rem;
     transition: all 0.3s ease;
     position: relative;
+    padding: 0.5rem 0;
 }
 
 .nav-link:hover {
-    color: var(--primary-color);
+    color: var(--text-primary);
+}
+
+.nav-link.active {
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 0;
     width: 0;
     height: 2px;
+    bottom: 0;
+    left: 50%;
     background: var(--gradient-ai);
-    transition: width 0.3s ease;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link.active::after {
     width: 100%;
 }
 
@@ -707,10 +714,26 @@ body {
     line-height: 1.6;
 }
 
+.article-meta {
+    margin-bottom: 0.8rem;
+}
+
+.article-date {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.article-date i {
+    color: var(--accent-color);
+    margin-right: 0.3rem;
+}
+
 .project-tech {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin-top: 1rem;
 }
 
 .project-tech span {
@@ -966,15 +989,23 @@ body {
     }
 
     .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 1.5rem;
         justify-items: center;
         align-items: start;
+        max-width: 400px;
+        margin: 0 auto;
+        margin-bottom: 2rem;
+    }
+    
+    /* Limiter à 3 cartes sur mobile */
+    .projects-grid .project-card:nth-child(n+4) {
+        display: none;
     }
     
     .project-card {
         width: 100%;
-        max-width: 280px;
+        max-width: 350px;
         margin: 0 auto;
     }
     
@@ -1059,18 +1090,26 @@ body {
     }
 
     .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 1rem;
         justify-items: center;
         padding: 0;
+        max-width: 300px;
+        margin: 0 auto;
+        margin-bottom: 2rem;
+    }
+    
+    /* Limiter à 3 cartes sur mobile */
+    .projects-grid .project-card:nth-child(n+4) {
+        display: none;
     }
     
     .project-card {
-        max-width: 160px;
+        max-width: 280px;
         width: 100%;
-        margin: 0;
+        margin: 0 auto;
         height: auto;
-        min-height: 280px;
+        min-height: 320px;
     }
     
     .projects .container {
