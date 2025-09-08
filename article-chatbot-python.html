@@ -684,8 +684,54 @@ streamlit run app.py --server.port 8080 --server.address 0.0.0.0</code></pre>
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <!-- Chat Widget -->
+    <div id="chat-widget">
+        <div id="chat-toggle">
+            <i class="fas fa-comments"></i>
+            <div id="chat-notification">1</div>
+        </div>
+        
+        <div id="chat-window">
+            <div class="chat-header">
+                <div class="chat-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="chat-info">
+                    <h4>SambaBot IA</h4>
+                    <span class="chat-status">En ligne</span>
+                </div>
+                <button id="chat-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Salut ! 👋 Je suis SambaBot IA, l'assistant virtuel de Samba SY. Comment puis-je vous aider avec nos services ?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-quick-actions">
+                <button class="quick-btn" data-message="Je veux un devis pour un projet IA">Devis IA</button>
+                <button class="quick-btn" data-message="Parlez-moi de vos services Cloud AWS">Cloud AWS</button>
+                <button class="quick-btn" data-message="Montrez-moi vos projets">Projets</button>
+            </div>
+            
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Tapez votre message...">
+                <button id="chat-send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
+    <script src="js/script.js"></script>
 
     <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"7a68570590ba6cb5a4535bad3c550761"})});</script>
 </body>
