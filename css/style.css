@@ -20,6 +20,21 @@
     --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
 }
 
+/* Variables pour le thème clair */
+[data-theme="light"] {
+    --dark-bg: #ffffff;
+    --dark-surface: #f8fafc;
+    --dark-card: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
 /* Reset et base */
 * {
     margin: 0;
@@ -175,6 +190,54 @@ body {
     background: var(--text-primary);
     margin: 3px 0;
     transition: 0.3s;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.theme-toggle-btn {
+    background: none;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: rotate(180deg);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+}
+
+.theme-toggle-btn:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+/* Animation pour l'icône */
+#theme-icon {
+    transition: all 0.3s ease;
+}
+
+[data-theme="light"] .theme-toggle-btn {
+    background: rgba(6, 182, 212, 0.1);
+}
+
+[data-theme="light"] .navbar {
+    background: rgba(248, 250, 252, 0.98) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Hero Section */

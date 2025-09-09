@@ -595,8 +595,63 @@ class ChatBot {
     }
 }
 
-// Initialize chat when DOM is loaded
+// Theme Toggle Functionality
+class ThemeToggle {
+    constructor() {
+        this.themeToggleBtn = document.getElementById('theme-toggle-btn');
+        this.themeIcon = document.getElementById('theme-icon');
+        this.currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        this.init();
+    }
+    
+    init() {
+        // Set initial theme
+        this.setTheme(this.currentTheme);
+        
+        // Add click event listener
+        if (this.themeToggleBtn) {
+            this.themeToggleBtn.addEventListener('click', () => this.toggleTheme());
+        }
+    }
+    
+    toggleTheme() {
+        const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+        this.setTheme(newTheme);
+    }
+    
+    setTheme(theme) {
+        this.currentTheme = theme;
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        
+        // Update icon
+        if (this.themeIcon) {
+            if (theme === 'light') {
+                this.themeIcon.className = 'fas fa-moon';
+            } else {
+                this.themeIcon.className = 'fas fa-sun';
+            }
+        }
+        
+        // Update navbar background for light theme
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+            if (theme === 'light') {
+                navbar.style.background = 'rgba(248, 250, 252, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(15, 15, 35, 0.98)';
+            }
+        }
+    }
+}
+
+// Initialize theme toggle and chat when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize theme toggle
+    new ThemeToggle();
+    
+    // Initialize chat widget
     if (document.getElementById('chat-widget')) {
         new ChatBot();
     }
