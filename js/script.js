@@ -41,6 +41,49 @@ function highlightActivePage() {
 // Appeler la fonction au chargement de la page
 document.addEventListener('DOMContentLoaded', highlightActivePage);
 
+// Effet 3D interactif pour l'image de profil
+document.addEventListener('DOMContentLoaded', function() {
+    const profileImage = document.querySelector('.profile-image-hero');
+    const profileContainer = document.querySelector('.profile-container');
+    
+    if (profileImage && profileContainer) {
+        // Effet de suivi de la souris
+        profileContainer.addEventListener('mousemove', function(e) {
+            const rect = profileContainer.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const mouseX = e.clientX - centerX;
+            const mouseY = e.clientY - centerY;
+            
+            const rotateX = (mouseY / rect.height) * 30;
+            const rotateY = (mouseX / rect.width) * 30;
+            
+            profileImage.style.transform = `
+                rotateX(${15 - rotateX}deg) 
+                rotateY(${-15 + rotateY}deg) 
+                scale(1.02)
+            `;
+        });
+        
+        // Retour à la position normale
+        profileContainer.addEventListener('mouseleave', function() {
+            profileImage.style.transform = 'rotateX(15deg) rotateY(-15deg) scale(1)';
+        });
+        
+        // Effet de clic pour rotation complète
+        profileImage.addEventListener('click', function() {
+            profileImage.style.animation = 'none';
+            profileImage.style.transform = 'rotateX(0deg) rotateY(360deg) scale(1.1)';
+            
+            setTimeout(() => {
+                profileImage.style.animation = 'float3D 8s ease-in-out infinite, glow3D 4s ease-in-out infinite alternate';
+                profileImage.style.transform = 'rotateX(15deg) rotateY(-15deg) scale(1)';
+            }, 800);
+        });
+    }
+});
+
 // Animation des barres de compétences
 const observerOptions = {
     threshold: 0.5,

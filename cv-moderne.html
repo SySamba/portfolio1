@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Samba SY | Data Scientist & Développeur IA</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #06b6d4;
+            --accent-color: #8b5cf6;
+            --gradient-ai: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --light-bg: #ffffff;
+            --light-surface: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .cv-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background: var(--card-bg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .cv-header {
+            background: var(--gradient-ai);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 20px;
+            background: url('image.jpg') center/cover;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cv-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .cv-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+
+        .contact-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .cv-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            padding: 40px;
+        }
+
+        .sidebar {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            padding: 30px;
+            border-radius: 15px;
+            height: fit-content;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .main-content {
+            padding-left: 20px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            font-size: 1.2rem;
+        }
+
+        .skill-category {
+            margin-bottom: 30px;
+        }
+
+        .skill-category h4 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-item span {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .skill-bar {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--gradient-ai);
+            border-radius: 4px;
+            transition: width 2s ease-in-out;
+            position: relative;
+            width: 0%;
+        }
+
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .cert-item {
+            background: linear-gradient(135deg, #fef7ff 0%, #f3e8ff 100%);
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-color);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cert-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.15);
+        }
+
+        .cert-item h4 {
+            color: var(--primary-color);
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .cert-date {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .experience-item {
+            background: linear-gradient(135deg, #f0fdff 0%, #e6fffa 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--secondary-color);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .job-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .job-period {
+            background: var(--secondary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .company {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .project-item {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.15);
+        }
+
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .tech-tag {
+            background: rgba(6, 182, 212, 0.2);
+            color: var(--secondary-color);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .qr-section {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-code {
+            width: 90px;
+            height: 90px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-pattern {
+            width: 100%;
+            height: 100%;
+        }
+
+        .qr-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-ai);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .cv-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .experience-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .qr-section {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-top: 20px;
+            }
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .cv-container { box-shadow: none; }
+            .download-btn { display: none; }
+            .qr-section { background: rgba(0,0,0,0.05); }
+        }
+    </style>
+</head>
+<body>
+    <button class="download-btn" onclick="downloadPDF()">
+        <i class="fas fa-download"></i> Télécharger PDF
+    </button>
+
+    <div class="cv-container" id="cv-content">
+        <div class="cv-header">
+            <div class="profile-photo"></div>
+            <h1 class="cv-name">SAMBA SY</h1>
+            <p class="cv-title">INGÉNIEUR DATA SCIENTIST | DATA ANALYST | DÉVELOPPEUR FULL STACK | EXPERT IA</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+221 77 378 48 14</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>sambasy837@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Dakar, Sénégal</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span>linkedin.com/in/samba-sy</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <span>github.com/SySamba</span>
+                </div>
+            </div>
+
+            <div class="qr-section">
+                <div class="qr-code" id="qrcode">
+                </div>
+                <div class="qr-text">Scannez pour accéder<br>à mon portfolio</div>
+            </div>
+        </div>
+
+        <div class="cv-content">
+            <div class="sidebar">
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-brain"></i>
+                        Compétences Techniques
+                    </h3>
+                    
+                    <div class="skill-category">
+                        <h4><i class="fas fa-brain"></i> Data Science & IA</h4>
+                        <div class="skill-item">
+                            <span>Python, R, Scala</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Machine Learning</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Deep Learning</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4><i class="fas fa-cloud"></i> Cloud & DevOps</h4>
+                        <div class="skill-item">
+                            <span>AWS Cloud</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="75"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Docker & Kubernetes</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span>CI/CD</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4><i class="fas fa-code"></i> Développement</h4>
+                        <div class="skill-item">
+                            <span>Full Stack Development</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Bases de Données</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="75"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Data Visualization</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-certificate"></i>
+                        Certifications
+                    </h3>
+                    
+                    <div class="cert-item">
+                        <h4>AWS re/Start Cloud Practitioner</h4>
+                        <div class="cert-date">Avril - Juillet 2024</div>
+                    </div>
+                    
+                    <div class="cert-item">
+                        <h4>Intelligence Artificielle</h4>
+                        <div class="cert-date">Oct 2023 - Mars 2024</div>
+                    </div>
+                    
+                    <div class="cert-item">
+                        <h4>DevOps on AWS</h4>
+                        <div class="cert-date">Mai - Juillet 2024</div>
+                    </div>
+                    
+                    <div class="cert-item">
+                        <h4>Database Programming PL/SQL</h4>
+                        <div class="cert-date">Nov 2023 - Avril 2024</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        Formation
+                    </h3>
+                    
+                    <div class="cert-item" style="background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left-color: #f97316;">
+                        <h4 style="color: #ea580c;">Master IA et Big Data</h4>
+                        <div class="cert-date" style="color: #f97316; font-weight: 600;">2024 - 2025</div>
+                        <small style="color: #9a3412; font-weight: 500;">Université Cheikh Anta Diop de Dakar</small>
+                    </div>
+                    
+                    <div class="cert-item" style="background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left-color: #f97316;">
+                        <h4 style="color: #ea580c;">Licence Technicien Informatique</h4>
+                        <div class="cert-date" style="color: #f97316; font-weight: 600;">2021 - 2022</div>
+                        <small style="color: #9a3412; font-weight: 500;">Université Cheikh Anta Diop de Dakar</small>
+                    </div>
+                    
+                    <div class="cert-item" style="background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left-color: #f97316;">
+                        <h4 style="color: #ea580c;">Baccalauréat Scientifique</h4>
+                        <div class="cert-date" style="color: #f97316; font-weight: 600;">2017</div>
+                        <small style="color: #9a3412; font-weight: 500;">Lycée C.D.G de Khombole</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-briefcase"></i>
+                        Expérience Professionnelle
+                    </h3>
+                    
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div>
+                                <div class="job-title">Développeur Full Stack & Data Scientist</div>
+                                <div class="company">Porokhane Digital Consulting</div>
+                            </div>
+                            <div class="job-period">Fév 2025 - Présent</div>
+                        </div>
+                        <p>Développement de solutions complètes combinant expertise en data science et développement web. Création d'applications intelligentes intégrant des modèles d'IA et solutions innovantes pour les clients.</p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div>
+                                <div class="job-title">Data Analyst</div>
+                                <div class="company">Aéroport de Yoff, Dakar</div>
+                            </div>
+                            <div class="job-period">Août 2024 - Fév 2025</div>
+                        </div>
+                        <p>Analyse des données pour optimiser les processus décisionnels. Création de tableaux de bord interactifs et rapports détaillés. Collaboration avec différentes équipes pour identifier les opportunités d'amélioration.</p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div>
+                                <div class="job-title">Stage Développeur Full Stack</div>
+                                <div class="company">Webgram, Dakar</div>
+                            </div>
+                            <div class="job-period">Août 2022 - Jan 2023</div>
+                        </div>
+                        <p>Développement d'un système de gestion interne et création d'applications client interactives. Débogage, optimisation des performances et amélioration UX.</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-rocket"></i>
+                        Projets Phares
+                    </h3>
+                    
+                    <div class="project-item">
+                        <div class="project-title">Système de Détection de Fake News</div>
+                        <p>Application IA capable d'analyser vidéos et textes pour déterminer leur véracité. Utilise des modèles NLP avancés, déployée sur Azure avec Docker.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">NLP</span>
+                            <span class="tech-tag">Azure</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="project-title">Application de Prédiction du Diabète</div>
+                        <p>Modèle ML prédictif pour anticiper les risques de diabète à partir de données cliniques avec 92% de précision.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Machine Learning</span>
+                            <span class="tech-tag">Scikit-learn</span>
+                            <span class="tech-tag">Azure</span>
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="project-title">Dashboard COVID-19</div>
+                        <p>Tableau de bord interactif pour le suivi en temps réel des données COVID-19 avec visualisations dynamiques.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Streamlit</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Plotly</span>
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="project-title">Tableau de Bord Trafic Aérien</div>
+                        <p>Dashboard Power BI pour le suivi du trafic aérien à l'Aéroport de Yoff. Analyse des flux et optimisation des opérations.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Power BI</span>
+                            <span class="tech-tag">SQL</span>
+                            <span class="tech-tag">DAX</span>
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="project-title">Site Teranga Numérique</div>
+                        <p>Site web professionnel pour l'entreprise Teranga Numérique. Développement complet avec hébergement et optimisation SEO pour améliorer la visibilité en ligne.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML/CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">SEO</span>
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="project-title">Plateforme CV Khombole</div>
+                        <p>Système web pour la commune de Khombole pour collecter les CV des étudiants. Interface admin pour rechercher des candidats par domaine et les contacter.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">Bootstrap</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById('cv-content');
+            const downloadBtn = document.querySelector('.download-btn');
+            
+            // Cacher le bouton pendant la génération
+            downloadBtn.style.display = 'none';
+            
+            const opt = {
+                margin: [0.3, 0.3, 0.3, 0.3],
+                filename: 'CV_Samba_SY_Data_Scientist_2025.pdf',
+                image: { type: 'jpeg', quality: 0.95 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff'
+                },
+                jsPDF: { 
+                    unit: 'in', 
+                    format: 'a4', 
+                    orientation: 'portrait',
+                    compress: true
+                }
+            };
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Remettre le bouton après génération
+                downloadBtn.style.display = 'block';
+            });
+        }
+
+        // Générer le QR code
+        function generateQR() {
+            const qrContainer = document.getElementById('qrcode');
+            const url = 'https://sambasy.teranganumerique.com/';
+            
+            // Vider le conteneur
+            qrContainer.innerHTML = '';
+            
+            // Générer le vrai QR code
+            QRCode.toCanvas(qrContainer, url, {
+                width: 90,
+                height: 90,
+                margin: 1,
+                color: {
+                    dark: '#000000',
+                    light: '#FFFFFF'
+                }
+            }, function (error) {
+                if (error) {
+                    console.error('Erreur QR Code:', error);
+                    qrContainer.innerHTML = '<div style="font-size: 10px; text-align: center; padding: 20px;">QR Code<br>Portfolio</div>';
+                }
+            });
+        }
+
+        // Initialiser les animations au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            // Générer le QR code
+            generateQR();
+            
+            // Animer les barres de compétences
+            const skillBars = document.querySelectorAll('.skill-progress');
+            
+            setTimeout(() => {
+                skillBars.forEach(bar => {
+                    const width = bar.getAttribute('data-width');
+                    bar.style.width = width + '%';
+                });
+            }, 500);
+            
+            // Animation d'apparition des éléments
+            const elements = document.querySelectorAll('.cert-item, .experience-item, .project-item');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    el.style.transition = 'all 0.6s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
