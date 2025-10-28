@@ -197,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Envoyer l'email
         if (mail($to_email, $email_subject, $email_body, $headers)) {
             // Redirection vers une page de succès
-            header("Location: contact_success.php?name=" . urlencode($name));
+            header("Location: contact_success_simple.php?name=" . urlencode($name));
             exit();
         } else {
             $error_message = "Erreur lors de l'envoi de l'email. Veuillez réessayer.";
