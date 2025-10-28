@@ -61,8 +61,8 @@ Portfolio Samba SY
 🌍 Dakar, Sénégal
         ";
         
-        // Headers avec le nouvel email
-        $headers = "From: Portfolio Samba SY <teranganumerique@teranganumerique.com>\r\n";
+        // Headers avec le nouvel email sambasy@teranganumerique.com
+        $headers = "From: Portfolio Samba SY <sambasy@teranganumerique.com>\r\n";
         $headers .= "Reply-To: $email\r\n";
         $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
         $headers .= "X-Priority: 1\r\n"; // Priorité haute pour les devis
