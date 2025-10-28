@@ -100,7 +100,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </aside>
 
                     <div class="devis-main">
-                        <form id="devis-form" class="devis-form">
+                        <form id="devis-form" class="devis-form" action="process_devis.php" method="POST">
                             <!-- Champ anti-spam (honeypot) -->
                             <div style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">
                                 <label for="companyWebsite">Ne pas remplir ce champ</label>
@@ -259,44 +259,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </footer>
 
     <script src="js/script.js"></script>
-    <script>
-        // Simple form submission
-        document.getElementById('devis-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Basic validation
-            const requiredFields = ['fullName', 'email', 'phone', 'projectType', 'projectDescription'];
-            let isValid = true;
-            
-            requiredFields.forEach(field => {
-                const input = document.getElementById(field);
-                if (!input.value.trim()) {
-                    isValid = false;
-                    input.style.borderColor = '#ef4444';
-                } else {
-                    input.style.borderColor = '#6366f1';
-                }
-            });
-            
-            if (isValid) {
-                // Simulate form submission
-                const submitBtn = document.querySelector('.submit-btn');
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
-                submitBtn.disabled = true;
-                
-                setTimeout(() => {
-                    alert('Votre demande de devis a été envoyée avec succès ! Je vous répondrai sous 24h.');
-                    this.reset();
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer la Demande';
-                    submitBtn.disabled = false;
-                }, 2000);
-            } else {
-                alert('Veuillez remplir tous les champs obligatoires.');
-            }
-        });
-
-        function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"7a68570590ba6cb5a4535bad3c550761"})});
-    </script>
+    <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"7a68570590ba6cb5a4535bad3c550761"})});</script>
 
     <!-- Chat Widget -->
     <div id="chat-widget" class="chat-widget">
