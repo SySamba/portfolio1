@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
  * Test simple de la fonction mail()
  */
