@@ -25,9 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'autre' => '🔧 Autre'
         ];
         
-        // Email vers votre boîte Gmail ET votre nouvel email
+        // Email uniquement vers votre boîte Gmail
         $to_gmail = "sambasy837@gmail.com";
-        $to_domain = "teranganumerique@teranganumerique.com";
         
         $email_subject = "📧 Contact Portfolio - " . $name;
         $email_body = "
@@ -68,11 +67,8 @@ Portfolio Samba SY
         $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
         $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
         
-        // Envoyer à Gmail (principal)
-        $mail_gmail = mail($to_gmail, $email_subject, $email_body, $headers);
-        
-        // Envoyer aussi à votre email de domaine (copie)
-        $mail_domain = mail($to_domain, $email_subject, $email_body, $headers);
+        // Envoyer uniquement à Gmail
+        $mail_result = mail($to_gmail, $email_subject, $email_body, $headers);
         
         // Sauvegarder aussi dans un fichier (backup)
         $log_file = 'messages_contact.txt';
@@ -86,8 +82,7 @@ Portfolio Samba SY
         $log_entry .= "Délai : " . ($timeline ?: 'Non renseigné') . "\n";
         $log_entry .= "Message : $message\n";
         $log_entry .= "IP : " . ($_SERVER['REMOTE_ADDR'] ?? 'inconnue') . "\n";
-        $log_entry .= "Status Gmail : " . ($mail_gmail ? 'Envoyé' : 'Échec') . "\n";
-        $log_entry .= "Status Domain : " . ($mail_domain ? 'Envoyé' : 'Échec') . "\n";
+        $log_entry .= "Status Email : " . ($mail_result ? 'Envoyé' : 'Échec') . "\n";
         $log_entry .= "================================\n";
         
         file_put_contents($log_file, $log_entry, FILE_APPEND | LOCK_EX);

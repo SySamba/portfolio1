@@ -25,9 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'other' => '🔧 Autre'
         ];
         
-        // Email vers votre boîte Gmail ET votre nouvel email
+        // Email uniquement vers votre boîte Gmail
         $to_gmail = "sambasy837@gmail.com";
-        $to_domain = "teranganumerique@teranganumerique.com";
         
         $email_subject = "🎯 Demande de Devis - " . $fullName;
         $email_body = "
@@ -69,11 +68,8 @@ Portfolio Samba SY
         $headers .= "X-Priority: 1\r\n"; // Priorité haute pour les devis
         $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
         
-        // Envoyer à Gmail (principal)
-        $mail_gmail = mail($to_gmail, $email_subject, $email_body, $headers);
-        
-        // Envoyer aussi à votre email de domaine (copie)
-        $mail_domain = mail($to_domain, $email_subject, $email_body, $headers);
+        // Envoyer uniquement à Gmail
+        $mail_result = mail($to_gmail, $email_subject, $email_body, $headers);
         
         // Sauvegarder aussi dans un fichier (backup)
         $log_file = 'messages_devis.txt';
@@ -87,8 +83,7 @@ Portfolio Samba SY
         $log_entry .= "Délai : $timeline\n";
         $log_entry .= "Description : $projectDescription\n";
         $log_entry .= "IP : " . ($_SERVER['REMOTE_ADDR'] ?? 'inconnue') . "\n";
-        $log_entry .= "Status Gmail : " . ($mail_gmail ? 'Envoyé' : 'Échec') . "\n";
-        $log_entry .= "Status Domain : " . ($mail_domain ? 'Envoyé' : 'Échec') . "\n";
+        $log_entry .= "Status Email : " . ($mail_result ? 'Envoyé' : 'Échec') . "\n";
         $log_entry .= "================================\n";
         
         file_put_contents($log_file, $log_entry, FILE_APPEND | LOCK_EX);
