@@ -100,7 +100,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </aside>
 
                     <div class="devis-main">
-                        <form id="devis-form" class="devis-form" action="process_devis_ultra_simple.php" method="POST">
+                        <form id="devis-form" class="devis-form" action="https://formspree.io/f/xovgbyqo" method="POST">
+                            <!-- Redirection après succès -->
+                            <input type="hidden" name="_next" value="https://sambasy.com/merci.html">
+                            <!-- Sujet de l'email -->
+                            <input type="hidden" name="_subject" value="Nouvelle demande de devis depuis le portfolio">
                             <!-- Champ anti-spam (honeypot) -->
                             <div style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">
                                 <label for="companyWebsite">Ne pas remplir ce champ</label>

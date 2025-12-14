@@ -70,7 +70,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <!-- Contact Form -->
                 <div class="contact-form-container">
                     <h2>Envoyez-moi un Message</h2>
-                    <form id="contact-form-real" class="contact-form" action="process_contact_ultra_simple.php" method="POST">
+                    <form id="contact-form-real" class="contact-form" action="https://formspree.io/f/mgvgqreg" method="POST">
+                        <!-- Redirection après succès -->
+                        <input type="hidden" name="_next" value="https://sambasy.com/merci.html">
+                        <!-- Sujet de l'email -->
+                        <input type="hidden" name="_subject" value="Nouveau message de contact depuis le portfolio">
                         <div class="form-group">
                             <label for="name">Nom Complet *</label>
                             <input type="text" id="name" name="name" required>
