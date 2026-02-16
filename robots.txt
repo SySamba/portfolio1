@@ -1,8 +1,7 @@
-# robots.txt for https://example.com
-# Remplacez https://example.com par votre domaine réel
+# robots.txt for http://sambasy.com
 
 User-agent: *
 Allow: /
 
 # Lien vers le sitemap XML
-Sitemap: https://sambasy.teranganumerique.com/sitemap.xml
+Sitemap: http://sambasy.com/sitemap.xml

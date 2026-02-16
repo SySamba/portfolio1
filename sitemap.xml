@@ -1,91 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://sambasy.teranganumerique.com/</loc>
+        <loc>http://sambasy.com/</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/about.html</loc>
+        <loc>http://sambasy.com/about.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/services.html</loc>
+        <loc>http://sambasy.com/services.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/projects.html</loc>
+        <loc>http://sambasy.com/projects.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/blog.html</loc>
+        <loc>http://sambasy.com/blog.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/contact.html</loc>
+        <loc>http://sambasy.com/contact.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/devis.html</loc>
+        <loc>http://sambasy.com/devis.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/article.html</loc>
+        <loc>http://sambasy.com/article.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/article-power-bi.html</loc>
+        <loc>http://sambasy.com/article-power-bi.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/article-aws-migration.html</loc>
+        <loc>http://sambasy.com/article-aws-migration.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/article-chatbot-python.html</loc>
+        <loc>http://sambasy.com/article-chatbot-python.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/article-computer-vision.html</loc>
+        <loc>http://sambasy.com/article-computer-vision.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/article-docker-kubernetes.html</loc>
+        <loc>http://sambasy.com/article-docker-kubernetes.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/article-etl-elt.html</loc>
+        <loc>http://sambasy.com/article-etl-elt.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/article-fake-news.html</loc>
+        <loc>http://sambasy.com/article-fake-news.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
@@ -97,7 +97,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://sambasy.teranganumerique.com/article-terraform-cloudformation.html</loc>
+        <loc>http://sambasy.com/article-terraform-cloudformation.html</loc>
         <lastmod>2025-08-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
