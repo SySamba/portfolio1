@@ -699,3 +699,231 @@ document.addEventListener('DOMContentLoaded', () => {
         new ChatBot();
     }
 });
+
+// Popup galerie pour le projet Trafic Aérien
+function initAirTrafficGalleryPopup() {
+    const galleryTargets = document.querySelectorAll('.project-gallery[data-gallery="air-traffic"]');
+    const triggerLinks = document.querySelectorAll('a[data-open-gallery="air-traffic"]');
+    const triggerCards = document.querySelectorAll('.project-card[data-open-gallery="air-traffic"]');
+    if (!galleryTargets.length && !triggerLinks.length && !triggerCards.length) return;
+
+    const images = [
+        'images/1.png',
+        'images/2.png',
+        'images/3.png',
+        'images/4.png',
+        'images/5.jpg',
+        'images/6.jpg',
+        'images/7.png'
+    ];
+
+    const modal = document.createElement('div');
+    modal.className = 'gallery-modal';
+    modal.setAttribute('aria-hidden', 'true');
+    modal.innerHTML = `
+        <div class="gallery-modal-content" role="dialog" aria-modal="true" aria-label="Galerie Trafic Aérien">
+            <div class="gallery-modal-header">
+                <h3>Dashboard Trafic Aérien - 7 captures</h3>
+                <button class="gallery-close-btn" type="button" aria-label="Fermer la galerie">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="gallery-slider">
+                <button class="gallery-nav-btn gallery-prev-btn" type="button" aria-label="Image précédente">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <img class="gallery-main-image" src="${images[0]}" alt="Capture tableau de bord trafic aérien 1">
+                <button class="gallery-nav-btn gallery-next-btn" type="button" aria-label="Image suivante">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="gallery-slider-footer">
+                <span class="gallery-counter">1 / ${images.length}</span>
+            </div>
+            <div class="gallery-thumbs">
+                ${images.map((src, i) => `<button class="gallery-thumb-btn${i === 0 ? ' active' : ''}" type="button" data-index="${i}" aria-label="Afficher l'image ${i + 1}"><img src="${src}" alt="Miniature capture ${i + 1}" loading="lazy"></button>`).join('')}
+            </div>
+        </div>
+    `;
+
+    const closeBtn = modal.querySelector('.gallery-close-btn');
+    const prevBtn = modal.querySelector('.gallery-prev-btn');
+    const nextBtn = modal.querySelector('.gallery-next-btn');
+    const mainImage = modal.querySelector('.gallery-main-image');
+    const counter = modal.querySelector('.gallery-counter');
+    const thumbBtns = modal.querySelectorAll('.gallery-thumb-btn');
+    let currentIndex = 0;
+
+    const renderSlide = (index) => {
+        currentIndex = (index + images.length) % images.length;
+        mainImage.style.opacity = '0';
+        setTimeout(() => {
+            mainImage.src = images[currentIndex];
+            mainImage.alt = `Capture tableau de bord trafic aérien ${currentIndex + 1}`;
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+            thumbBtns.forEach((btn) => {
+                btn.classList.toggle('active', Number(btn.dataset.index) === currentIndex);
+            });
+            mainImage.style.opacity = '1';
+        }, 120);
+    };
+
+    const openModal = () => {
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    };
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+
+    galleryTargets.forEach((gallery) => {
+        gallery.querySelectorAll('img').forEach((img) => {
+            img.addEventListener('click', openModal);
+        });
+    });
+
+    triggerLinks.forEach((link) => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            openModal();
+        });
+    });
+
+    triggerCards.forEach((card) => {
+        card.addEventListener('click', (event) => {
+            if (event.target.closest('a, button')) return;
+            openModal();
+        });
+    });
+
+    prevBtn.addEventListener('click', () => renderSlide(currentIndex - 1));
+    nextBtn.addEventListener('click', () => renderSlide(currentIndex + 1));
+    thumbBtns.forEach((btn) => {
+        btn.addEventListener('click', () => renderSlide(Number(btn.dataset.index)));
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (event) => {
+        if (!modal.classList.contains('active')) return;
+        if (event.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+        if (event.key === 'ArrowLeft') renderSlide(currentIndex - 1);
+        if (event.key === 'ArrowRight') renderSlide(currentIndex + 1);
+    });
+
+    document.body.appendChild(modal);
+}
+
+document.addEventListener('DOMContentLoaded', initAirTrafficGalleryPopup);
+
+// Popup de details pour les projets IA sur l'accueil
+function initProjectDetailPopups() {
+    const detailTriggers = document.querySelectorAll('[data-open-project]');
+    if (!detailTriggers.length) return;
+
+    const projectContent = {
+        'fake-news': {
+            title: 'Detection Fake News',
+            subtitle: 'IA, NLP, Docker, Azure',
+            description: "Application IA capable d'analyser textes et contenus video pour estimer leur veracite, avec une approche orientee usage reel.",
+            points: [
+                "Conception du pipeline NLP pour nettoyer, vectoriser et classifier les contenus.",
+                "Traitement de textes et scenarios video avec scoring de credibilite interpretable.",
+                "Containerisation complete avec Docker pour des deploiements reproductibles.",
+                "Mise en production cloud sur Azure avec supervision des performances."
+            ],
+            tech: ['Python', 'NLP', 'Azure', 'Docker', 'Machine Learning']
+        },
+        diabetes: {
+            title: 'Prediction du Diabete',
+            subtitle: 'Machine Learning clinique',
+            description: "Solution predictive pour estimer le risque de diabete a partir de donnees cliniques, avec un focus sur la precision et la simplicite d'usage.",
+            points: [
+                "Preparation et normalisation des donnees medicales pour la robustesse du modele.",
+                "Entrainement et comparaison de modeles Scikit-learn avec validation croisee.",
+                "Interpretation des variables les plus impactantes pour aider a la decision.",
+                "Industrialisation de la solution avec logique de deploiement cloud."
+            ],
+            tech: ['Machine Learning', 'Python', 'Scikit-learn', 'Azure', 'Data Science']
+        }
+    };
+
+    const modal = document.createElement('div');
+    modal.className = 'project-detail-modal';
+    modal.setAttribute('aria-hidden', 'true');
+    modal.innerHTML = `
+        <div class="project-detail-content" role="dialog" aria-modal="true" aria-label="Details du projet">
+            <div class="project-detail-header">
+                <div>
+                    <h3 class="project-detail-title"></h3>
+                    <p class="project-detail-subtitle"></p>
+                </div>
+                <button class="project-detail-close" type="button" aria-label="Fermer les details">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p class="project-detail-description"></p>
+            <ul class="project-detail-points"></ul>
+            <div class="project-detail-tech"></div>
+        </div>
+    `;
+
+    const titleEl = modal.querySelector('.project-detail-title');
+    const subtitleEl = modal.querySelector('.project-detail-subtitle');
+    const descriptionEl = modal.querySelector('.project-detail-description');
+    const pointsEl = modal.querySelector('.project-detail-points');
+    const techEl = modal.querySelector('.project-detail-tech');
+    const closeBtn = modal.querySelector('.project-detail-close');
+
+    const openModal = (projectKey) => {
+        const data = projectContent[projectKey];
+        if (!data) return;
+
+        titleEl.textContent = data.title;
+        subtitleEl.textContent = data.subtitle;
+        descriptionEl.textContent = data.description;
+        pointsEl.innerHTML = data.points.map((point) => `<li>${point}</li>`).join('');
+        techEl.innerHTML = data.tech.map((item) => `<span>${item}</span>`).join('');
+
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+
+    detailTriggers.forEach((trigger) => {
+        trigger.addEventListener('click', (event) => {
+            const projectKey = trigger.getAttribute('data-open-project');
+            if (!projectKey) return;
+            event.preventDefault();
+            openModal(projectKey);
+        });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.body.appendChild(modal);
+}
+
+document.addEventListener('DOMContentLoaded', initProjectDetailPopups);

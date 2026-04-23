@@ -1018,6 +1018,303 @@ body {
     font-weight: 500;
 }
 
+.project-gallery {
+    margin-top: 1.25rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+}
+
+.project-gallery img {
+    width: 100%;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    filter: saturate(1.05) contrast(1.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.project-gallery img:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(99, 102, 241, 0.55);
+}
+
+.project-gallery[data-gallery="air-traffic"] img {
+    cursor: zoom-in;
+}
+
+.project-card[data-open-gallery="air-traffic"] {
+    cursor: pointer;
+}
+
+.project-card[data-open-project] {
+    cursor: pointer;
+}
+
+.gallery-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 10, 24, 0.88);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    z-index: 120000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.gallery-modal.active {
+    display: flex;
+}
+
+.gallery-modal-content {
+    width: min(1100px, 100%);
+    max-height: 90vh;
+    overflow: auto;
+    background: var(--dark-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    padding: 1.25rem;
+}
+
+.gallery-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.gallery-modal-header h3 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.gallery-close-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    background: var(--dark-card);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.gallery-close-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: scale(1.06);
+}
+
+.gallery-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.9rem;
+}
+
+.gallery-modal-grid img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--dark-card);
+}
+
+.gallery-slider {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background: #0c122a;
+}
+
+.gallery-main-image {
+    width: 100%;
+    height: clamp(260px, 52vh, 560px);
+    object-fit: contain;
+    display: block;
+    transition: opacity 0.2s ease;
+}
+
+.gallery-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(12, 18, 42, 0.65);
+    color: #fff;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.gallery-prev-btn {
+    left: 0.9rem;
+}
+
+.gallery-next-btn {
+    right: 0.9rem;
+}
+
+.gallery-slider-footer {
+    margin-top: 0.8rem;
+    display: flex;
+    justify-content: center;
+}
+
+.gallery-counter {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.gallery-thumbs {
+    margin-top: 0.9rem;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.gallery-thumb-btn {
+    border: 1px solid var(--border-color);
+    padding: 0;
+    border-radius: 9px;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--dark-card);
+}
+
+.gallery-thumb-btn.active {
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-glow);
+}
+
+.gallery-thumb-btn img {
+    width: 100%;
+    height: 58px;
+    object-fit: cover;
+    display: block;
+}
+
+.project-detail-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 10, 24, 0.86);
+    z-index: 120000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.project-detail-modal.active {
+    display: flex;
+}
+
+.project-detail-content {
+    width: min(860px, 100%);
+    background: linear-gradient(155deg, rgba(22, 33, 62, 0.98), rgba(13, 20, 44, 0.98));
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 28px 65px rgba(0, 0, 0, 0.5);
+    padding: 1.3rem;
+}
+
+.project-detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.project-detail-title {
+    color: var(--text-primary);
+    font-size: 1.35rem;
+}
+
+.project-detail-subtitle {
+    margin-top: 0.25rem;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.project-detail-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--dark-card);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.project-detail-description {
+    margin-top: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+}
+
+.project-detail-points {
+    margin: 1rem 0;
+    padding-left: 1rem;
+    color: var(--text-secondary);
+    display: grid;
+    gap: 0.5rem;
+}
+
+.project-detail-points li::marker {
+    color: var(--accent-color);
+}
+
+.project-detail-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.project-detail-tech span {
+    background: rgba(99, 102, 241, 0.18);
+    color: var(--accent-color);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .project-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .gallery-modal-content {
+        padding: 1rem;
+    }
+
+    .gallery-modal-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .gallery-modal-grid img {
+        height: 130px;
+    }
+
+    .gallery-thumbs {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .project-detail-content {
+        padding: 1rem;
+    }
+}
+
 /* Compétences */
 .skills {
     padding: 100px 0;
